@@ -6,8 +6,6 @@ import shutil
 from configparser import ConfigParser
 import datetime
 import redis
-import sched
-import time
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 BACKUP_PATH="C:/SpiderResultFile"
@@ -16,9 +14,7 @@ ERR_PATH="C:/temp/err"
 LOGGER_PATH="C:/temp/loger.log"
 LOGGER_FORMAT='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 
-REDIS_IP="10.3.1.99"
-REDIS_PORT="6379"
-REDIS_DB="12"
+
 
 
 THULAC_MODEL_PATH='C:/File/soft/python36/Lib/site-packages/thulac/models'
@@ -85,30 +81,16 @@ def copy_file(file):
     logger.info("文件复制成功！")
 
 
-def query():
-    redis_ = redis.Redis(host=REDIS_IP, port=REDIS_PORT, db=REDIS_DB, decode_responses=True)
 
-    # print(redis_.smembers("cnpiec_49_set"))
-    redis_.delete("cnpiec_49_done")
-    redis_.delete("cnpiec_49_list")
-    for key in redis_.keys("*"):
-        # redis_.delete(key)
-        # print(key+" "+redis_.type(key))
-        if redis_.type(key) == "string":
-            print(key + ":", redis_.get(key))
-        elif redis_.type(key) == "list":
-            print(key + " size:", redis_.llen(key), " values:", redis_.lrange(key, 0, 100))
-        elif redis_.type(key) == "set":
-            print(key + ":", redis_.scard(key), ":", redis_.smembers(key))
 
 def test():
     print(datetime.datetime.now(),"dfasd")
 
 
 if __name__ == '__main__':
-    # run()
+    run()
     # query()
-    scheduler=BlockingScheduler()
-    scheduler.add_job(func=run,trigger="cron",day="*",hour="0,12")
-    scheduler.start()
+    # scheduler=BlockingScheduler()
+    # scheduler.add_job(func=run,trigger="cron",day="*",hour="0,12")
+    # scheduler.start()
 

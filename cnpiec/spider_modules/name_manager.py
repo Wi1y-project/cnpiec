@@ -3,8 +3,12 @@ import threading
 import datetime
 from  cnpiec.spider_modules import tasks,standard_spider
 
+REDIS_IP="10.3.1.99"
+REDIS_PORT="6379"
+REDIS_DB="12"
 
-redis_ = redis.Redis(host=tasks.REDIS_IP, port=tasks.REDIS_PORT, db=tasks.REDIS_DB, decode_responses=True)
+
+redis_ = redis.Redis(host=REDIS_IP, port=REDIS_PORT, db=REDIS_DB, decode_responses=True)
 REDIS_ERR_NAME="err"
 FINISH_LIST_NAME="finish"
 def print_errs(file):
@@ -20,7 +24,9 @@ def print_errs(file):
 def write_file(file_path):
     file = open(file_path, "a+", encoding="utf-8")
     while(True):
-        string=redis_.lpush(FINISH_LIST_NAME)
+        if redis_.llen(FINISH_LIST_NAME) == 0:
+            break
+        string=redis_.lpop(FINISH_LIST_NAME)
         bean=standard_spider.Bean()
         bean.parser(string)
         file.write(
@@ -95,7 +101,21 @@ class Name_Manager(object):
         redis_.delete(self.create_lock_name())
 
 
+def query():
+    redis_ = redis.Redis(host=REDIS_IP, port=REDIS_PORT, db=REDIS_DB, decode_responses=True)
 
+    # print(redis_.smembers("cnpiec_49_set"))
+    redis_.delete("cnpiec_49_done")
+    redis_.delete("cnpiec_49_list")
+    for key in redis_.keys("*"):
+        # redis_.delete(key)
+        # print(key+" "+redis_.type(key))
+        if redis_.type(key) == "string":
+            print(key + ":", redis_.get(key))
+        elif redis_.type(key) == "list":
+            print(key + " size:", redis_.llen(key), " values:", redis_.lrange(key, 0, 100))
+        elif redis_.type(key) == "set":
+            print(key + ":", redis_.scard(key), ":", redis_.smembers(key))
 
 
 

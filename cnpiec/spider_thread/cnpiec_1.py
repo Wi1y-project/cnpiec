@@ -62,3 +62,8 @@ class second(ss.EndSpider):
             str = str + tag.get_text().strip()
 
         return str.replace("\n", "")
+
+
+if __name__ == '__main__':
+    s=second(None)
+    s.test("http://www.ccgp-beijing.gov.cn/xxgg/sjzfcggg/t20190128_1078620.html")

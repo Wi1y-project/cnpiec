@@ -175,7 +175,10 @@ class EndSpider(threading.Thread):
         bean.text=self.text
         self.text=None
 
-        bean.name=self.nm.name
+        if self.nm == None:
+            print("nm为空，请确认是否为测试！")
+        else:
+            bean.name=self.nm.name
         bean.title="".join(bean.title.split())
         bean.text="".join(bean.text.split())
         bean.cut=self.do_cut(bean.title)
@@ -189,6 +192,10 @@ class EndSpider(threading.Thread):
         return a
 
 
+    def test(self,url):
+        bean=Bean()
+        self.get(url)
+        self.set_parm(bean)
 
 
 class increment():
