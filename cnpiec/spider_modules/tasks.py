@@ -17,20 +17,21 @@ LOGGER_FORMAT='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 
 
 
-THULAC_MODEL_PATH='C:/File/soft/python36/Lib/site-packages/thulac/models'
+
 CONF_NAME="conf.cfg"
 
 logging.basicConfig(level = logging.INFO,format = LOGGER_FORMAT)
 logger=logging.getLogger("logger")
 fh=handlers.RotatingFileHandler(LOGGER_PATH)
 formater_str=logging.Formatter(LOGGER_FORMAT)
-fh.setLevel(logging.INFO)
+fh.setLevel(logging.ERROR)
 fh.setFormatter(formater_str)
 logger.addHandler(fh)
 
 
 def run():
-    conf = ConfigParser()
+    # conf = ConfigParser()
+    conf = Conf_Parser()
     conf.read(CONF_NAME)
     thread=[]
     for item in conf.items("task"):
@@ -81,6 +82,12 @@ def copy_file(file):
     logger.info("文件复制成功！")
 
 
+class Conf_Parser(ConfigParser):
+    def __init__(self, defaults=None):
+        ConfigParser.__init__(self, defaults=None)
+
+    def optionxform(self, optionstr):
+        return optionstr
 
 
 def test():
@@ -88,9 +95,9 @@ def test():
 
 
 if __name__ == '__main__':
-    run()
+    # run()
     # query()
-    # scheduler=BlockingScheduler()
-    # scheduler.add_job(func=run,trigger="cron",day="*",hour="0,12")
-    # scheduler.start()
+    scheduler=BlockingScheduler()
+    scheduler.add_job(func=run,trigger="cron",day="*",hour="0,12")
+    scheduler.start()
 

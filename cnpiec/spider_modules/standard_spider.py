@@ -5,7 +5,7 @@ import datetime
 import time
 import json
 import thulac
-from cnpiec.spider_modules import tasks
+from cnpiec.spider_modules import name_manager
 
 URL_NAME="url"
 DATE_NAME="date"
@@ -17,15 +17,18 @@ TITLE_CUT="cut"
 NAME="name"
 
 
+THULAC_MODEL_PATH='C:/File/soft/python36/Lib/site-packages/thulac/models'
 
 logger=logging.getLogger("logger")
-thu1 = thulac.thulac(model_path = tasks.THULAC_MODEL_PATH)
+thu1 = thulac.thulac(model_path = THULAC_MODEL_PATH)
 
 class StartSpider(threading.Thread):
     def __init__(self,nm):
         threading.Thread.__init__(self)
         self.nm=nm
         self.url_increment=increment(self.nm)
+        self.null_num=0
+        self.MAX_NULL_NUM=10
 
     def get(self,num):
         pass
@@ -34,17 +37,32 @@ class StartSpider(threading.Thread):
         list.append((url,date))
 
     def run(self):
-        logger.info(self.nm.name+" StartSpider start...")
+        logger.info(self.nm.name+" StartSpider start as "+self.name+"...")
         i=0
+
+        err_time=0
+        err_count=0
         while(True):
-            logger.info(self.nm.name + " run page: "+str(i))
+            logger.info(self.nm.name + "__"+self.name+" run page: "+str(i))
             try:
                 time.sleep(random.random()*3)
                 list=self.get(i)
             except:
                 logger.error(self.nm.name+" Start Thread has err. err page: "+ str(i),exc_info = True)
+                err_time+=1
+                if err_time>5:
+                    err_count+=1
+                    i+=1
+                    if err_count>5:
+                        bean=Bean()
+                        bean.name=self.nm.name
+                        bean.err="请求页面出错，异常退出！"
+                        self.nm.set_err(bean)
+                        break
+                continue
 
             do_exit=True
+            has_increment=False
             for item in list:
                 url=item[0]
                 date=item[1]
@@ -55,8 +73,14 @@ class StartSpider(threading.Thread):
                         bean.date=date
                         bean.url=url
                         self.nm.put_bean(bean)
+                        has_increment=True
                     do_exit=False
-            # print(do_exit)
+
+            if not has_increment :
+                self.null_num+=1
+                if self.null_num>self.MAX_NULL_NUM:
+                    do_exit=True
+            # print("================",do_exit)
             if do_exit:
                 logger.info(self.nm.name+" start thread finsh.")
                 self.nm.set_done(True)
@@ -108,20 +132,20 @@ class EndSpider(threading.Thread):
     def __init__(self,nm):
         threading.Thread.__init__(self)
         self.nm=nm
-        self.title=None
-        self.text=None
+        self.temp_title=None
+        self.temp_text=None
 
     def get(self,url):
         pass
 
     def set_title(self,title):
-        self.title=title
+        self.temp_title=title
 
     def set_text(self,text):
-        self.text=text
+        self.temp_text=text
 
     def run(self):
-        logger.info(self.nm.name+" end thread start...")
+        logger.info(self.nm.name+" end thread start as "+self.name+"...")
 
         while (True):
             if self.nm.has_next():
@@ -131,11 +155,11 @@ class EndSpider(threading.Thread):
                 if self.nm.get_done() == str(True):
                     break
                 else:
-                    logger.info(self.nm.name + " end thread :当前任务已完成，等待新任务...")
+                    logger.info(self.nm.name + "__"+self.name+" end thread :当前任务已完成，等待新任务...")
                     time.sleep(10)
                     continue
             try:
-                logger.info(self.nm.name+" 开始爬取："+bean.url)
+                logger.info(self.nm.name + "__"+self.name+ " 开始爬取："+bean.url)
                 time.sleep(random.random()*3)
                 self.get(bean.url)
             except Exception as e:
@@ -143,19 +167,38 @@ class EndSpider(threading.Thread):
                 bean.retry +=1
 
                 if bean.retry <5:
+                    logger.info(self.nm.name + " err url : " + bean.url+" 重试次数："+str(bean.retry)+"。小于5次,继续重试...")
                     self.nm.put_bean(bean)
                 else:
+                    logger.info(self.nm.name + " err url : " + bean.url + " 重试次数：" + str(bean.retry) + "。大于5次,不再重试。")
                     bean.err=e.__str__()
+                    bean.date=""
+                    bean.title=""
+                    bean.text=""
+
                     self.nm.delete_url(bean.url)
                     self.nm.set_err(bean)
+
+                continue
             try:
                 self.set_parm(bean)
                 self.nm.set_finish(bean)
             except Exception as e:
-                logger.error(self.nm.name + " end Thread has err. err url : " + bean.url, exc_info=True)
-                bean.err = e.__str__()
-                self.nm.delete_url(bean.url)
-                self.nm.set_err(bean)
+                logger.error(self.nm.name + " end Thread download value has err. err url : " + bean.url, exc_info=True)
+                bean.retry += 1
+
+                if bean.retry < 5:
+                    logger.info(self.nm.name + " err url : " + bean.url + " 重试次数：" + str(bean.retry) + "。小于5次,继续重试...")
+                    self.nm.put_bean(bean)
+                else:
+                    logger.info(self.nm.name + " err url : " + bean.url + " 重试次数：" + str(bean.retry) + "。大于5次,不再重试。")
+                    bean.err = e.__str__()
+                    bean.date = ""
+                    bean.title = ""
+                    bean.text = ""
+                    self.nm.delete_url(bean.url)
+                    self.nm.set_err(bean)
+
 
         logger.info(self.nm.name+ " end thread finsh!")
         self.nm.clear_done()
@@ -164,16 +207,16 @@ class EndSpider(threading.Thread):
 
     def set_parm(self,bean):
 
-        if self.title == None:
+        if self.temp_title == None:
             raise ValueError("title 不能为空！")
 
-        if self.text == None:
+        if self.temp_text == None:
             raise ValueError("text 不能为空！")
 
-        bean.title=self.title
-        self.title=None
-        bean.text=self.text
-        self.text=None
+        bean.title=self.temp_title
+        self.temp_title=None
+        bean.text=self.temp_text
+        self.temp_text=None
 
         if self.nm == None:
             print("nm为空，请确认是否为测试！")
@@ -185,8 +228,8 @@ class EndSpider(threading.Thread):
 
     def do_cut(self,title):
         a = ""
-        text = thu1.cut(title, text=False)
-        for i in text:
+        cuts = thu1.cut(title, text=False)
+        for i in cuts:
             if 'n' == i[1] or 'v' == i[1] or 'a' == i[1] or 'j' == i[1] or 'x' == i[1] or 'd' == i[1] or 'g' == i[1]:
                 a += i[0] + ' '
         return a
@@ -194,15 +237,18 @@ class EndSpider(threading.Thread):
 
     def test(self,url):
         bean=Bean()
+        print("test get 方法...")
         self.get(url)
+        print("测试get方法的结果...")
         self.set_parm(bean)
+        print(bean.name + "##" + bean.url + "##" + bean.date + "##" + bean.title + "##" + bean.text + "##" + bean.cut)
 
 
 class increment():
     def __init__(self,nm):
         self.nm=nm
         self.format="%Y-%m-%d"
-        self.default_date="2019-1-15"
+        self.default_date="2019-1-29"
         self.current_date=None
         self.last_date=None
         self.url_date=None

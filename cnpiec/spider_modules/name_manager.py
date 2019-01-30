@@ -14,12 +14,12 @@ FINISH_LIST_NAME="finish"
 def print_errs(file):
     num=redis_.llen(REDIS_ERR_NAME)
     if num != 0:
-        err_file=open(file,"a+",encoding="UTF-8")
+        err_file=open(file,"a+",encoding="utf-8")
         while(True):
             if redis_.llen(REDIS_ERR_NAME) == 0:
                 break
             line=redis_.rpop(REDIS_ERR_NAME)
-            err_file.write(str(datetime.datetime.now())+line+"\n")
+            err_file.write(str(datetime.datetime.now())+" "+line+"\n")
 
 def write_file(file_path):
     file = open(file_path, "a+", encoding="utf-8")
@@ -83,7 +83,7 @@ class Name_Manager(object):
         return num==1
 
     def delete_url(self,url):
-        redis_.srem(url)
+        redis_.srem(self.create_set_name(),url)
 
     def get_last_date(self):
         return redis_.get(self.create_date_name())
@@ -100,24 +100,31 @@ class Name_Manager(object):
     def release_lock(self):
         redis_.delete(self.create_lock_name())
 
+    def delete_all(self):
+        for key in redis_.keys(self.name+"*"):
+            redis_.delete(key)
+
 
 def query():
-    redis_ = redis.Redis(host=REDIS_IP, port=REDIS_PORT, db=REDIS_DB, decode_responses=True)
 
-    # print(redis_.smembers("cnpiec_49_set"))
-    redis_.delete("cnpiec_49_done")
-    redis_.delete("cnpiec_49_list")
+    for i in range(50):
+        keys="cnpiec_"+str(i)+"_*"
+        print("查询值：",keys)
+        for key in redis_.keys(keys):
+            # redis_.delete(key)
+            # print(key+" "+redis_.type(key))
+            if redis_.type(key) == "string":
+                print(key + ":", redis_.get(key))
+            elif redis_.type(key) == "list":
+                print(key + " size:", redis_.llen(key), " values:")
+            elif redis_.type(key) == "set":
+                print(key + ":", redis_.scard(key), ":")
+
+
+
+
+if __name__ == '__main__':
+    # redis_.srem("cnpiec_47_set","http://ecp.cnnc.com.cn/xzbgg/66179.jhtml")
+    # query()
     for key in redis_.keys("*"):
-        # redis_.delete(key)
-        # print(key+" "+redis_.type(key))
-        if redis_.type(key) == "string":
-            print(key + ":", redis_.get(key))
-        elif redis_.type(key) == "list":
-            print(key + " size:", redis_.llen(key), " values:", redis_.lrange(key, 0, 100))
-        elif redis_.type(key) == "set":
-            print(key + ":", redis_.scard(key), ":", redis_.smembers(key))
-
-
-
-
-
+        redis_.delete(key)
