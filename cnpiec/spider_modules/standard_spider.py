@@ -21,9 +21,9 @@ RESPONSIBLE="responsible"
 NEED="need"
 
 
-# jvmPath = 'C:/Program Files/Java/jre1.8.0_191/bin/server/jvm.dll'
-jvmPath = 'C:/File/soft/java/jre1.8/bin/server/jvm.dll'
-jpype.startJVM(jvmPath, "-Djava.class.path=D:/classifier.jar")
+# # jvmPath = 'C:/Program Files/Java/jre1.8.0_191/bin/server/jvm.dll'
+# jvmPath = 'C:/File/soft/java/jre1.8/bin/server/jvm.dll'
+# jpype.startJVM(jvmPath, "-Djava.class.path=D:/classifier.jar")
 
 
 THULAC_MODEL_PATH='C:/File/soft/python36/Lib/site-packages/thulac/models'
@@ -72,10 +72,11 @@ class StartSpider(threading.Thread):
 
             do_exit=True
             has_increment=False
+            print("---------------------","page"+str(i))
             for item in list:
                 url=item[0]
                 date=item[1]
-                # print(url,date)
+                print(url,date)
                 if self.url_increment.date_compare(date):
                     if self.url_increment.url_compare(url,date):
                         bean=Bean()
@@ -237,9 +238,9 @@ class EndSpider(threading.Thread):
             bean.name=self.nm.name
         bean.title="".join(bean.title.split())
         bean.text="".join(bean.text.split())
-        # bean.cut=self.do_cut(bean.title)
+        bean.cut=self.do_cut(bean.title)
         bean.responsible = self.responsible(bean.url)
-        bean.need = self.java_part(bean.title)
+        # bean.need = self.java_part(bean.title)
 
     def do_cut(self,title):
         a = ""

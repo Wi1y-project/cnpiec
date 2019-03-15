@@ -105,7 +105,7 @@ def test():
 
 if __name__ == '__main__':
     thread=[]
-    pyname="cnpiec_31"
+    pyname="cnpiec_30"
     first="first"
     second="thrid"
 

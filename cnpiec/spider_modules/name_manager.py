@@ -2,11 +2,19 @@ import redis
 import threading
 import datetime
 from  cnpiec.spider_modules import tasks,standard_spider
+import jpype
+from jpype import *
 
 REDIS_IP="10.3.1.99"
 REDIS_PORT="6379"
 REDIS_DB="12"
 
+# jvmPath = 'C:/Program Files/Java/jre1.8.0_191/bin/server/jvm.dll'
+jvmPath = 'C:/File/soft/java/jre1.8/bin/server/jvm.dll'
+jpype.startJVM(jvmPath, "-Djava.class.path=D:/classifier.jar")
+
+keyword_arr1 = ["文献","纸质","纸本","数据库","画册","杂志","书刊","报刊","期刊","刊物","期刊订购","原版图书","外文图书","纸质图书","图书供货","图书供应","图书购置","图书采购","图书资料","图书项目","古籍","书籍","电子图书","电子资源","全文","馆配","馆藏","订购","续订","增订","查阅","订阅","阅览","编目","唱片","平台采购","数据编制","数据处理","数据加工","数据获取","数据资源","数字资源","网络资源","资源建设","资料购买","软件租赁","爱思唯尔","外版","使用权","会议录"]
+keyword_arr2 = ["图书","书","刊","库","报","软件","档案","资料","材料","数据","合集","电子","数字化","图书馆","索引"]
 
 redis_ = redis.Redis(host=REDIS_IP, port=REDIS_PORT, db=REDIS_DB, decode_responses=True)
 REDIS_ERR_NAME="err"
@@ -29,9 +37,35 @@ def write_file(file_path):
         string=redis_.lpop(FINISH_LIST_NAME)
         bean=standard_spider.Bean()
         bean.parser(string)
+        bean.need = needs(bean)
+
+
+
         file.write(
             bean.name + "##" + bean.url + "##" + bean.date + "##" + bean.title + "##" + bean.text + "##" + bean.responsible+"##"+bean.need + "\n")
 
+def needs(bean):
+    for c, i in enumerate(keyword_arr1):
+        if i in bean.cut:
+            return  "y"
+        elif c == len(keyword_arr1) - 1:
+            for c2, j in enumerate(keyword_arr2):
+                if j in bean.cut:
+                   return java_part(bean.cut)
+                elif c2 == len(keyword_arr2) - 1:
+                   return "n"
+
+def java_part(parm):
+
+    Trainer = JClass('Trainer')
+    t = Trainer()
+    t.setMode(t.inPut())
+    t.processText(parm)
+    res = t.getResult()
+    if 'y' in res:
+        return 's'
+    else:
+        return res
 
 class Name_Manager(object):
     '''
