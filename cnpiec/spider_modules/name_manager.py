@@ -22,7 +22,7 @@ def print_errs(file):
             err_file.write(str(datetime.datetime.now())+" "+line+"\n")
 
 def write_file(file_path):
-    file = open(file_path, "a+", encoding="utf-8")
+    file = open(file_path, "w+", encoding="utf-8")
     while(True):
         if redis_.llen(FINISH_LIST_NAME) == 0:
             break
@@ -30,7 +30,7 @@ def write_file(file_path):
         bean=standard_spider.Bean()
         bean.parser(string)
         file.write(
-            bean.name + "##" + bean.url + "##" + bean.date + "##" + bean.title + "##" + bean.text + "##" + bean.cut + "\n")
+            bean.name + "##" + bean.url + "##" + bean.date + "##" + bean.title + "##" + bean.text + "##" + bean.responsible+"##"+bean.need + "\n")
 
 
 class Name_Manager(object):
@@ -125,6 +125,6 @@ def query():
 
 if __name__ == '__main__':
     # redis_.srem("cnpiec_47_set","http://ecp.cnnc.com.cn/xzbgg/66179.jhtml")
-    # query()
-    for key in redis_.keys("*"):
-        redis_.delete(key)
+    query()
+    # for key in redis_.keys("*"):
+    #     redis_.delete(key)

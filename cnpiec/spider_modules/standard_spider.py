@@ -5,6 +5,8 @@ import datetime
 import time
 import json
 import thulac
+import jpype
+from jpype import JClass
 from cnpiec.spider_modules import name_manager
 
 URL_NAME="url"
@@ -15,6 +17,13 @@ RETRY_NEME="retry"
 ERR_NAME="err"
 TITLE_CUT="cut"
 NAME="name"
+RESPONSIBLE="responsible"
+NEED="need"
+
+
+# jvmPath = 'C:/Program Files/Java/jre1.8.0_191/bin/server/jvm.dll'
+jvmPath = 'C:/File/soft/java/jre1.8/bin/server/jvm.dll'
+jpype.startJVM(jvmPath, "-Djava.class.path=D:/classifier.jar")
 
 
 THULAC_MODEL_PATH='C:/File/soft/python36/Lib/site-packages/thulac/models'
@@ -99,13 +108,16 @@ class Bean():
         self.err=""
         self.cut=""
         self.name=""
+        self.responsible=""
+        self.need=""
 
 
     def create_dict(self):
         return {URL_NAME:self.url,DATE_NAME:self.date,
                  TITLE_NEME:self.title,TEXT_NEME:self.text,
                 RETRY_NEME:self.retry,ERR_NAME:self.err,
-                TITLE_CUT:self.cut,NAME:self.name}
+                TITLE_CUT:self.cut,NAME:self.name,
+                RESPONSIBLE:self.responsible,NEED:self.need}
 
     def parser_dict(self,dicts):
         self.url=dicts[URL_NAME]
@@ -116,6 +128,8 @@ class Bean():
         self.err=dicts[ERR_NAME]
         self.cut=dicts[TITLE_CUT]
         self.name=dicts[NAME]
+        self.responsible=dicts[RESPONSIBLE]
+        self.need=dicts[NEED]
 
     def to_string(self):
         if self.url =="":
@@ -127,7 +141,6 @@ class Bean():
 
     def parser(self,string):
         self.parser_dict(json.loads(string))
-
 class EndSpider(threading.Thread):
     def __init__(self,nm):
         threading.Thread.__init__(self)
@@ -224,7 +237,9 @@ class EndSpider(threading.Thread):
             bean.name=self.nm.name
         bean.title="".join(bean.title.split())
         bean.text="".join(bean.text.split())
-        bean.cut=self.do_cut(bean.title)
+        # bean.cut=self.do_cut(bean.title)
+        bean.responsible = self.responsible(bean.url)
+        bean.need = self.java_part(bean.title)
 
     def do_cut(self,title):
         a = ""
@@ -233,6 +248,45 @@ class EndSpider(threading.Thread):
             if 'n' == i[1] or 'v' == i[1] or 'a' == i[1] or 'j' == i[1] or 'x' == i[1] or 'd' == i[1] or 'g' == i[1]:
                 a += i[0] + ' '
         return a
+
+    def java_part(self, parm):
+
+        Trainer = JClass('Trainer')
+        t = Trainer()
+        t.setMode(t.inPut())
+        t.processText(parm)
+        res = t.getResult()
+        if 'y' in res:
+            return 's'
+        else:
+            return res
+
+    def responsible(self,site):
+
+        if '/' in site.replace('http://', '').replace('https://', ''):
+            site = site.replace('http://', '').replace('https://', '').split('/')[0].strip()
+        else:
+            site = site.replace('http://', '').replace('https://', '').strip()
+
+        site_map = {
+            'www.gzsggzyjyzx.cn': '王洋',
+            'www.ccgp-jiangsu.gov.cn': '何一石',
+            'www.ccgp-shandong.gov.cn': '孟宏权',
+            'cgb.xjtu.edu.cn': '秦超,刘波',
+            'ggzy.xjbt.gov.cn': '刘波',
+            'zbxx.ycit.cn': '王美怡',
+            'www.ccgp-yancheng.gov.cn': '何一石',
+            'www.zjzfcg.gov.cn': '董伟琨',
+            'www.bidchance.com': '孟宏权,杨跃,高世明,张琦,杨跃,杜士荣,秦超,赵潇潇,刘柳,姜波,郑子玉,沈婧男,肖俊文,李东海',
+            'www.ccgp.gov.cn': '王雪娟,肖俊文,刘波,刘向平,孟宏权,刘波,师光辉,张洁,骆金伟,李晓光,金丽荣,姜波,沈婧男,赵潇潇,李东海,孙秀焕,杨跃,王洋,刘默'
+        }
+
+        try:
+            return site_map[site]
+        except:
+            return '无负责人'
+
+
 
 
     def test(self,url):
@@ -296,7 +350,6 @@ class increment():
         return result
 
 
-
     def date_check(self):
         if self.current_date != None:
             while True:
@@ -314,7 +367,3 @@ class increment():
                     break
                 else:
                     time.sleep(1)
-
-
-
-
