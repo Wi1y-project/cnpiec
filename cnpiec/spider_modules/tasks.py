@@ -10,10 +10,14 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 import jpype
 
 
-BACKUP_PATH="C:/SpiderResultFile"
-COPY_PATH="C:/temp/file"
-ERR_PATH="C:/temp/err"
-LOGGER_PATH="C:/temp/loger.log"
+# BACKUP_PATH="C:/SpiderResultFile"
+BACKUP_PATH="/home/ntrl"
+# COPY_PATH="C:/temp/file"
+COPY_PATH="/home/ntrl/temp/file"
+# ERR_PATH="C:/temp/err"
+ERR_PATH="/home/ntrl/temp/err"
+# LOGGER_PATH="C:/temp/loger.log"
+LOGGER_PATH="/home/ntrl/temp/loger.log"
 LOGGER_FORMAT='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 
 
