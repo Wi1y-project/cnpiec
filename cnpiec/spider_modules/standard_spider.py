@@ -7,29 +7,15 @@ import json
 import thulac
 import jpype
 from jpype import JClass
-from cnpiec.spider_modules import name_manager
-
-URL_NAME="url"
-DATE_NAME="date"
-TITLE_NEME="title"
-TEXT_NEME="text"
-RETRY_NEME="retry"
-ERR_NAME="err"
-TITLE_CUT="cut"
-NAME="name"
-RESPONSIBLE="responsible"
-NEED="need"
+from cnpiec.spider_modules.tasks import common_keys
 
 
-# # jvmPath = 'C:/Program Files/Java/jre1.8.0_191/bin/server/jvm.dll'
-# jvmPath = 'C:/File/soft/java/jre1.8/bin/server/jvm.dll'
-# jpype.startJVM(jvmPath, "-Djava.class.path=D:/classifier.jar")
 
 
-THULAC_MODEL_PATH='C:/File/soft/python36/Lib/site-packages/thulac/models'
+
 
 logger=logging.getLogger("logger")
-thu1 = thulac.thulac(model_path = THULAC_MODEL_PATH)
+thu1 = thulac.thulac(model_path = common_keys.THULAC_MODEL_PATH)
 
 class StartSpider(threading.Thread):
     def __init__(self,nm):
@@ -114,23 +100,23 @@ class Bean():
 
 
     def create_dict(self):
-        return {URL_NAME:self.url,DATE_NAME:self.date,
-                 TITLE_NEME:self.title,TEXT_NEME:self.text,
-                RETRY_NEME:self.retry,ERR_NAME:self.err,
-                TITLE_CUT:self.cut,NAME:self.name,
-                RESPONSIBLE:self.responsible,NEED:self.need}
+        return {common_keys.URL_NAME:self.url,common_keys.DATE_NAME:self.date,
+                 common_keys.TITLE_NEME:self.title,common_keys.TEXT_NEME:self.text,
+                common_keys.RETRY_NEME:self.retry,common_keys.ERR_NAME:self.err,
+                common_keys.TITLE_CUT:self.cut,common_keys.NAME:self.name,
+                common_keys.RESPONSIBLE:self.responsible,common_keys.NEED:self.need}
 
     def parser_dict(self,dicts):
-        self.url=dicts[URL_NAME]
-        self.date=dicts[DATE_NAME]
-        self.title=dicts[TITLE_NEME]
-        self.text=dicts[TEXT_NEME]
-        self.retry=dicts[RETRY_NEME]
-        self.err=dicts[ERR_NAME]
-        self.cut=dicts[TITLE_CUT]
-        self.name=dicts[NAME]
-        self.responsible=dicts[RESPONSIBLE]
-        self.need=dicts[NEED]
+        self.url=dicts[common_keys.URL_NAME]
+        self.date=dicts[common_keys.DATE_NAME]
+        self.title=dicts[common_keys.TITLE_NEME]
+        self.text=dicts[common_keys.TEXT_NEME]
+        self.retry=dicts[common_keys.RETRY_NEME]
+        self.err=dicts[common_keys.ERR_NAME]
+        self.cut=dicts[common_keys.TITLE_CUT]
+        self.name=dicts[common_keys.NAME]
+        self.responsible=dicts[common_keys.RESPONSIBLE]
+        self.need=dicts[common_keys.NEED]
 
     def to_string(self):
         if self.url =="":
@@ -250,17 +236,17 @@ class EndSpider(threading.Thread):
                 a += i[0] + ' '
         return a
 
-    def java_part(self, parm):
-
-        Trainer = JClass('Trainer')
-        t = Trainer()
-        t.setMode(t.inPut())
-        t.processText(parm)
-        res = t.getResult()
-        if 'y' in res:
-            return 's'
-        else:
-            return res
+    # def java_part(self, parm):
+    #
+    #     Trainer = JClass('Trainer')
+    #     t = Trainer()
+    #     t.setMode(t.inPut())
+    #     t.processText(parm)
+    #     res = t.getResult()
+    #     if 'y' in res:
+    #         return 's'
+    #     else:
+    #         return res
 
     def responsible(self,site):
 
