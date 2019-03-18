@@ -2,11 +2,12 @@ import redis
 import re
 import datetime
 import time
-from  cnpiec.spider_modules import tasks,standard_spider
-from cnpiec.spider_modules.tasks import common_keys
+from  cnpiec.spider_modules import standard_spider
+from cnpiec.spider_modules.common import common_keys
 import jpype
 from jpype import *
 import sys
+
 
 
 
@@ -31,10 +32,12 @@ def print_errs(file):
             line=redis_.rpop(REDIS_ERR_NAME)
             err_file.write(str(datetime.datetime.now())+" "+line+"\n")
 
-def write_file(file_path,rowkey_file_path):
+def write_file(file_path):
     file = open(file_path, "w+", encoding="utf-8")
-    rowkey_file=open(rowkey_file_path,"w+",encoding="utf-8")
+    rowkey_file = open(common_keys.ROWKEY_PATH, "w+", encoding="UTF-8")
+
     i=0
+    start_row=create_rowkey(i)
     while(True):
         if redis_.llen(FINISH_LIST_NAME) == 0:
             break
@@ -45,10 +48,11 @@ def write_file(file_path,rowkey_file_path):
         rowkey=create_rowkey(i)
         line=rowkey+"##"+bean.name + "##" + bean.url + "##" + bean.date + "##" + bean.title + "##" + bean.text + "##" + bean.responsible+"##"+bean.need
         line=re.sub("\s+"," ",line)
-        rowkey_file.write(rowkey+"\n")
+        # rowkey_file.write(rowkey+"\n")
         file.write(line + "\n")
         i+=1
-
+    end_row=create_rowkey(i-1)
+    rowkey_file.write(common_keys.NOTE + common_keys.START_ROW + "=" + start_row + "\n" + common_keys.END_ROW + "=" + end_row)
 
 def create_rowkey(i):
     d=time.mktime(datetime.datetime.now().date().timetuple())
@@ -59,7 +63,7 @@ def create_rowkey(i):
     # print(time.mktime(datetime.datetime.now().date().timetuple()))
     # print(t)
     fs="2"
-    if tasks.common_keys.FIRST_TIME<=h<tasks.common_keys.SECOND_TIME:
+    if common_keys.FIRST_TIME<=h<common_keys.SECOND_TIME:
         fs="1"
 
     return str(t)+"_"+str.zfill(str(i),5)+"_"+fs
@@ -184,9 +188,13 @@ def query():
 
 
 if __name__ == '__main__':
-    for i in range(10):
-        print(create_rowkey(i))
-        time.sleep(1)
+    file=open(common_keys.ROWKEY_PATH,"w+",encoding="UTF-8")
+    file.write(common_keys.NOTE+common_keys.START_ROW+"="+"sdfsf"+"\n"+common_keys.END_ROW+"="+"sfsdf")
+
+
+    # for i in range(10):
+    #     print(create_rowkey(i))
+    #     time.sleep(1)
     # redis_.srem("cnpiec_47_set","http://ecp.cnnc.com.cn/xzbgg/66179.jhtml")
     # query()
     # for key in redis_.keys("*"):

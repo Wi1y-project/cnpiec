@@ -1,6 +1,7 @@
 import logging
 from logging import handlers
 from cnpiec.spider_modules import name_manager
+from cnpiec.spider_modules.common import common_keys
 import os
 import shutil
 from configparser import ConfigParser
@@ -8,11 +9,6 @@ import datetime
 import time
 from apscheduler.schedulers.blocking import BlockingScheduler
 import jpype
-
-
-
-
-
 
 LOGGER_FORMAT='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 
@@ -22,49 +18,6 @@ LOGGER_FORMAT='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 # LOGGER_PATH="/home/ntrl/temp/loger.log"
 
 
-
-
-
-
-class common_keys:
-    FIRST_TIME=6
-    SECOND_TIME=18
-    REDIS_IP = "10.3.1.99"
-    REDIS_PORT = "6379"
-    REDIS_DB = "12"
-    jvmPath = 'C:/File/soft/java/jre1.8/bin/server/jvm.dll'
-    JAR_PATH="/home/classifier.jar"
-    THULAC_MODEL_PATH = 'C:/File/soft/python36/Lib/site-packages/thulac/models'
-    URL_NAME = "url"
-    DATE_NAME = "date"
-    TITLE_NEME = "title"
-    TEXT_NEME = "text"
-    RETRY_NEME = "retry"
-    ERR_NAME = "err"
-    TITLE_CUT = "cut"
-    NAME = "name"
-    RESPONSIBLE = "responsible"
-    NEED = "need"
-
-    #文件下载路径
-    FILE_PATH = "C:/SpiderResultFile"
-    #复制文件路径，暂时不用
-    COPY_PATH = "C:/temp/file"
-
-    #错误文件路径
-    ERR_PATH = "C:/temp/err"
-
-    #写日志的文件路径
-    LOGGER_PATH = "C:/temp/loger.log"
-
-    CONF_NAME = "conf.cfg"
-
-
-    keyword_arr1 = ["文献", "纸质", "纸本", "数据库", "画册", "杂志", "书刊", "报刊", "期刊", "刊物", "期刊订购", "原版图书", "外文图书", "纸质图书", "图书供货",
-                    "图书供应", "图书购置", "图书采购", "图书资料", "图书项目", "古籍", "书籍", "电子图书", "电子资源", "全文", "馆配", "馆藏", "订购", "续订",
-                    "增订", "查阅", "订阅", "阅览", "编目", "唱片", "平台采购", "数据编制", "数据处理", "数据加工", "数据获取", "数据资源", "数字资源", "网络资源",
-                    "资源建设", "资料购买", "软件租赁", "爱思唯尔", "外版", "使用权", "会议录"]
-    keyword_arr2 = ["图书", "书", "刊", "库", "报", "软件", "档案", "资料", "材料", "数据", "合集", "电子", "数字化", "图书馆", "索引"]
 
 
 
@@ -98,8 +51,7 @@ def run():
 
     # file = create_file()
     file=create_single_file()
-    rowkey_file=create_rowkey_file()
-    name_manager.write_file(file,rowkey_file)
+    name_manager.write_file(file)
     # copy_file(file)
     name_manager.print_errs(common_keys.ERR_PATH)
 
@@ -126,8 +78,6 @@ def create_single_file():
         os.mkdir(common_keys.FILE_PATH)
     return common_keys.FILE_PATH + "/CNPIEC.txt"
 
-def create_rowkey_file():
-    return common_keys.FILE_PATH+"/ROWKEY.txt"
 
 # def copy_file(file):
 #     logger.info("开始复制文件...")
@@ -150,15 +100,13 @@ class Conf_Parser(ConfigParser):
 
 
 
-def test():
-    print("start...")
-    time.sleep(120)
-    print("done!")
-
 
 if __name__ == '__main__':
+    # file = open(common_keys.ROWKEY_PATH, "w+", encoding="UTF-8")
+    # file.write(common_keys.NOTE + common_keys.START_ROW + "=" + "sdfsf" + "\n" + common_keys.END_ROW + "=" + "sfsdf")
+
     thread=[]
-    pyname="cnpiec_30"
+    pyname="cnpiec_5"
     first="first"
     second="thrid"
 
@@ -171,8 +119,7 @@ if __name__ == '__main__':
         t.join()
 
     file = create_single_file()
-    rowkey_file=create_rowkey_file()
-    name_manager.write_file(file,rowkey_file)
+    name_manager.write_file(file)
     # copy_file(file)
     name_manager.print_errs(common_keys.ERR_PATH)
     # query()

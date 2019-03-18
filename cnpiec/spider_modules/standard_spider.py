@@ -7,7 +7,7 @@ import json
 import thulac
 import jpype
 from jpype import JClass
-from cnpiec.spider_modules.tasks import common_keys
+from cnpiec.spider_modules.common import common_keys
 
 
 
