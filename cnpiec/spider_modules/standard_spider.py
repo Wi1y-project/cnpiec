@@ -5,17 +5,10 @@ import datetime
 import time
 import json
 import thulac
-import jpype
-from jpype import JClass
 from cnpiec.spider_modules.common import common_keys
 
-
-
-
-
-
 logger=logging.getLogger("logger")
-thu1 = thulac.thulac(model_path = common_keys.THULAC_MODEL_PATH)
+
 
 class StartSpider(threading.Thread):
     def __init__(self,nm):
@@ -58,11 +51,11 @@ class StartSpider(threading.Thread):
 
             do_exit=True
             has_increment=False
-            print("---------------------","page"+str(i))
+            # print("---------------------","page"+str(i))
             for item in list:
                 url=item[0]
                 date=item[1]
-                print(url,date)
+                # print(url,date)
                 if self.url_increment.date_compare(date):
                     if self.url_increment.url_compare(url,date):
                         bean=Bean()
@@ -134,6 +127,7 @@ class EndSpider(threading.Thread):
         self.nm=nm
         self.temp_title=None
         self.temp_text=None
+        self.thu1 = thulac.thulac(model_path = common_keys.THULAC_MODEL_PATH)
 
     def get(self,url):
         pass
@@ -230,7 +224,7 @@ class EndSpider(threading.Thread):
 
     def do_cut(self,title):
         a = ""
-        cuts = thu1.cut(title, text=False)
+        cuts = self.thu1.cut(title, text=False)
         for i in cuts:
             if 'n' == i[1] or 'v' == i[1] or 'a' == i[1] or 'j' == i[1] or 'x' == i[1] or 'd' == i[1] or 'g' == i[1]:
                 a += i[0] + ' '

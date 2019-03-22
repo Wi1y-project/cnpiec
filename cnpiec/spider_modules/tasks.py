@@ -3,12 +3,13 @@ from logging import handlers
 from cnpiec.spider_modules import name_manager
 from cnpiec.spider_modules.common import common_keys
 import os
-import shutil
+import threading
 from configparser import ConfigParser
 import datetime
 import time
 from apscheduler.schedulers.blocking import BlockingScheduler
-import jpype
+import sys
+from jpype import long
 
 LOGGER_FORMAT='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 
@@ -18,11 +19,7 @@ LOGGER_FORMAT='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 # LOGGER_PATH="/home/ntrl/temp/loger.log"
 
 
-
-
-
-
-logging.basicConfig(level = logging.INFO,format = LOGGER_FORMAT)
+logging.basicConfig(level = logging.DEBUG,format = LOGGER_FORMAT)
 logger=logging.getLogger("logger")
 fh=handlers.RotatingFileHandler(common_keys.LOGGER_PATH)
 formater_str=logging.Formatter(LOGGER_FORMAT)
@@ -49,12 +46,6 @@ def run():
     for t in thread:
         t.join()
 
-    # file = create_file()
-    file=create_single_file()
-    name_manager.write_file(file)
-    # copy_file(file)
-    name_manager.print_errs(common_keys.ERR_PATH)
-
 
 def run_single(pyname,first,second,thread):
     pyfile = __import__("cnpiec.spider_thread." + pyname, fromlist=True)
@@ -73,22 +64,6 @@ def create_file():
     file_num = list.__len__()
     file_name = "CNPIEC_"
     return common_keys.FILE_PATH + "/" + file_name + str(file_num).zfill(5) + "_" + str(datetime.datetime.now().date())
-def create_single_file():
-    if not os.path.exists(common_keys.FILE_PATH):
-        os.mkdir(common_keys.FILE_PATH)
-    return common_keys.FILE_PATH + "/CNPIEC.txt"
-
-
-# def copy_file(file):
-#     logger.info("开始复制文件...")
-#     if os.path.exists(COPY_PATH):
-#         os.remove(COPY_PATH)
-#     if not os.path.exists(file):
-#         logging.info("下载文件为空！")
-#     else:
-#         shutil.copy(file,COPY_PATH)
-#
-#     logger.info("文件复制成功！")
 
 
 class Conf_Parser(ConfigParser):
@@ -98,19 +73,13 @@ class Conf_Parser(ConfigParser):
     def optionxform(self, optionstr):
         return optionstr
 
+def test():
+    thread = []
+    pyname = "cnpiec_21"
+    first = "first"
+    second = "thrid"
 
-
-
-if __name__ == '__main__':
-    # file = open(common_keys.ROWKEY_PATH, "w+", encoding="UTF-8")
-    # file.write(common_keys.NOTE + common_keys.START_ROW + "=" + "sdfsf" + "\n" + common_keys.END_ROW + "=" + "sfsdf")
-
-    thread=[]
-    pyname="cnpiec_5"
-    first="first"
-    second="thrid"
-
-    run_single(pyname,first,second,thread)
+    run_single(pyname, first, second, thread)
 
     for t in thread:
         t.start()
@@ -118,10 +87,12 @@ if __name__ == '__main__':
     for t in thread:
         t.join()
 
-    file = create_single_file()
-    name_manager.write_file(file)
-    # copy_file(file)
-    name_manager.print_errs(common_keys.ERR_PATH)
+
+
+if __name__ == '__main__':
+    test()
+
+
     # query()
     # scheduler=BlockingScheduler()
     # scheduler.add_job(func=run,trigger="cron",day="*",hour="0,12")
