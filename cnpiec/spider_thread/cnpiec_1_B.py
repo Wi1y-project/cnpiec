@@ -11,9 +11,9 @@ class first(ss.StartSpider):
     def get(self,num):
         urls=[]
         if num == 0:
-            url="http://www.ccgp-beijing.gov.cn/xxgg/sjzfcggg/index.html"
+            url="http://www.ccgp-beijing.gov.cn/xxgg/qjzfcggg/index.html"
         else:
-            url="http://www.ccgp-beijing.gov.cn/xxgg/sjzfcggg/index_"+str(num+1)+".html"
+            url="http://www.ccgp-beijing.gov.cn/xxgg/qjzfcggg/index_"+str(num+1)+".html"
 
         data = requests.get(url)
         data.encoding = "gbk"
@@ -22,7 +22,7 @@ class first(ss.StartSpider):
         soup = BeautifulSoup(data, "html.parser")
 
         for li in soup.find_all("li"):
-            url_n = "http://www.ccgp-beijing.gov.cn/xxgg/sjzfcggg" + li.find("a")["href"][1:]
+            url_n = "http://www.ccgp-beijing.gov.cn/xxgg/qjzfcggg" + li.find("a")["href"][1:]
             date = li.find("span").text
             self.set_list(urls,url_n,date)
 
@@ -63,7 +63,3 @@ class second(ss.EndSpider):
 
         return str.replace("\n", "")
 
-
-if __name__ == '__main__':
-    s=second(None)
-    s.test("http://www.ccgp-beijing.gov.cn/xxgg/sjzfcggg/t20190128_1078620.html")

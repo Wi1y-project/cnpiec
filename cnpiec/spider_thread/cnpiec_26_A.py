@@ -14,10 +14,9 @@ class first(ss.StartSpider):
 
         if num ==0:
             url="http://www.njgp.gov.cn/cgxx/cggg/jzcgjg/index.html"
-        elif num > 90:
-            url="http://www.njgp.gov.cn/cgxx/cggg/jzcgjg/index_90.html"
+
         else:
-            url = "http://www.njgp.gov.cn/cgxx/cggg/jzcgjg/index"+str(num)+".html"
+            url = "http://www.njgp.gov.cn/cgxx/cggg/jzcgjg/index_"+str(num)+".html"
 
         header = {"User-Agent":
                       "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36",
