@@ -14,14 +14,18 @@ class first(ss.StartSpider):
 
         if num ==0:
             url="http://www.njgp.gov.cn/cgxx/cggg/jzcgjg/index.html"
+        elif num > 90:
+            url="http://www.njgp.gov.cn/cgxx/cggg/jzcgjg/index_90.html"
         else:
-            url="http://www.njgp.gov.cn/cgxx/cggg/jzcgjg/index_"+str(num)+".html"
+            url = "http://www.njgp.gov.cn/cgxx/cggg/jzcgjg/index"+str(num)+".html"
 
         header = {"User-Agent":
                       "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36",
                   "Upgrade-Insecure-Requests": "1"}
         data = requests.get(url, headers=header)
+
         data.encoding = 'utf-8'
+
         data = data.text
 
         nums = re.search("index", url).span()
@@ -29,7 +33,8 @@ class first(ss.StartSpider):
 
         soup = BeautifulSoup(data, "html.parser")
 
-        div_tag = soup.find("div", class_="R_cont_detail")
+        div_tag = soup.find(attrs={"class":"R_cont_detail"})
+
         for li_tag in div_tag.find_all("li"):
             a_tag = li_tag.find("a")
             url_t = a_tag["href"]

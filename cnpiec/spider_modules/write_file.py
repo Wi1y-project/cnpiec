@@ -62,6 +62,7 @@ def reset_time():
             break
         else:
             common_keys.ROWKEY_CONDITION.wait()
+    # print_errs(common_keys.ERR_PATH)
 
 
 
@@ -104,7 +105,11 @@ def write_file(file_path):
 
 
         common_keys.KEY_NUM += 1
-        line = rowkey + "##" + bean.name + "##" + bean.url + "##" + bean.date + "##" + bean.title + "##" + bean.text + "##" + bean.responsible + "##" + bean.need
+
+        bean.year=re.search("\d{4}",bean.date).group()
+        bean.fill_date=str(datetime.datetime.now().date())
+
+        line = rowkey + "##" + bean.name + "##" +bean.customerid+"##"+bean.year+"##"+bean.flag+"##"+bean.title+"##"+bean.url+"##"+bean.fill_date+"##"+bean.date+"##"+bean.operator+"##"+bean.need+"##"+bean.text
         line = re.sub("\s+", " ", line)
         # rowkey_file.write(rowkey+"\n")
         if file==None:
@@ -155,16 +160,20 @@ def java_part(parm):
 class scheduler_thread(threading.Thread):
     def run(self):
         scheduler = BlockingScheduler()
-        scheduler.add_job(func=reset_num,trigger="cron",day="*",hour=common_keys.SECOND_TIME)
-        scheduler.add_job(func=reset_time, trigger="cron", day="*", hour="0")
+        # scheduler.add_job(func=reset_num,trigger="cron",day="*",hour=common_keys.SECOND_TIME)
+        # scheduler.add_job(func=reset_time, trigger="cron", day="*", hour="0")
 
-        # scheduler.add_job(func=reset_time, trigger="cron", day="*", hour="*", minute="*")
+        scheduler.add_job(func=reset_time, trigger="cron", day="*", hour="*", minute="*")
         scheduler.start()
 
 
 
 if __name__ == '__main__':
     run_write()
+
+    #
+    # string="2019-01-05"
+    # print(datetime.datetime.now().date())
     # start_row = create_rowkey(0)
     # end_row = create_rowkey(10)
     # rowkey_file = open(common_keys.ROWKEY_PATH, "w+", encoding="UTF-8")

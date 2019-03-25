@@ -19,7 +19,7 @@ LOGGER_FORMAT='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 # LOGGER_PATH="/home/ntrl/temp/loger.log"
 
 
-logging.basicConfig(level = logging.DEBUG,format = LOGGER_FORMAT)
+logging.basicConfig(level = logging.INFO,format = LOGGER_FORMAT)
 logger=logging.getLogger("logger")
 fh=handlers.RotatingFileHandler(common_keys.LOGGER_PATH)
 formater_str=logging.Formatter(LOGGER_FORMAT)
@@ -75,7 +75,7 @@ class Conf_Parser(ConfigParser):
 
 def test():
     thread = []
-    pyname = "cnpiec_21"
+    pyname = "cnpiec_26_A"
     first = "first"
     second = "thrid"
 

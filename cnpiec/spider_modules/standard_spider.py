@@ -41,11 +41,15 @@ class StartSpider(threading.Thread):
                 if err_time>5:
                     err_count+=1
                     i+=1
+                    err_time=0
                     if err_count>5:
+                        logger.error(self.nm.name+" 错误次数太多，请检查程序。")
                         bean=Bean()
                         bean.name=self.nm.name
+                        bean.url="None"
                         bean.err="请求页面出错，异常退出！"
                         self.nm.set_err(bean)
+                        self.nm.set_done(True)
                         break
                 continue
 
@@ -90,6 +94,11 @@ class Bean():
         self.name=""
         self.responsible=""
         self.need=""
+        self.customerid="999999"
+        self.year=""
+        self.flag="B"
+        self.fill_date=""
+        self.operator="MAC"
 
 
     def create_dict(self):
@@ -118,6 +127,9 @@ class Bean():
             raise ValueError("date 不能为空！")
 
         return json.dumps(self.create_dict())
+
+    def err_message(self):
+        return self.name+"##"+self.url+"##"+self.err
 
     def parser(self,string):
         self.parser_dict(json.loads(string))

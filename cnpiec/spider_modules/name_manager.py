@@ -28,7 +28,7 @@ class Name_Manager(object):
         return self.name + "_date"
 
     def set_err(self,bean):
-        redis_.lpush(common_keys.REDIS_ERR_NAME,bean.to_string())
+        redis_.lpush(common_keys.REDIS_ERR_NAME,bean.err_message())
 
     def set_finish(self,bean):
         redis_.lpush(common_keys.FINISH_LIST_NAME,bean.to_string())
