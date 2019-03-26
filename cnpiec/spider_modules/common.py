@@ -8,14 +8,14 @@ class common_keys:
     #第二次执行时间
     SECOND_TIME=18
     #redis数据库IP
-    REDIS_IP = "10.3.1.99"
+    REDIS_IP = "192.168.1.30"
     #redis端口
     REDIS_PORT = "6379"
     REDIS_DB = "12"
-    jvmPath = 'C:/File/soft/java/jre1.8/bin/server/jvm.dll'
+    jvmPath = '/usr/java/jdk1.7.0_67/jre/lib/amd64/server/libjvm.so'
     # JAR_PATH="/home/classifier.jar"
-    JAR_PATH="D:/classifier.jar"
-    THULAC_MODEL_PATH = 'C:/File/soft/python36/Lib/site-packages/thulac/models'
+    JAR_PATH="/home/classifier.jar"
+    THULAC_MODEL_PATH = '/opt/toolsrc/py/python3/lib/python3.6/site-packages/thulac/models'
     URL_NAME = "url"
     DATE_NAME = "date"
     TITLE_NEME = "title"
@@ -28,19 +28,19 @@ class common_keys:
     NEED = "need"
 
     #文件下载路径
-    FILE_PATH = "C:/SpiderResultFile"
+    FILE_PATH = "/home/ntrl"
     #复制文件路径，暂时不用
     COPY_PATH = "C:/temp/file"
 
     #错误文件路径
-    ERR_PATH = "C:/temp/err"
+    ERR_PATH = "/home/ntrl/temp/err"
 
     #写日志的文件路径
-    LOGGER_PATH = "C:/temp/loger.log"
+    LOGGER_PATH = "/home/ntrl/temp/loger.log"
 
     #rowkey路径
     # ROWKEY_PATH="/root/.kettle/kettle.properties"
-    ROWKEY_PATH="C:/SpiderResultFile/kettle.properties"
+    ROWKEY_PATH="/root/.kettle/kettle.properties"
 
     #无数据时，等待时间
     WAIT_TIME=600
