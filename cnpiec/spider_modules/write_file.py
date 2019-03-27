@@ -174,9 +174,10 @@ class scheduler_thread(threading.Thread):
 
 
 if __name__ == '__main__':
-    bean=standard_spider.Bean()
-    bean.title="]江西银信工程造价咨询有限公司关于南昌大学埋地固定式篮球架及悬浮运动地板采购项目"
-    print (needs(bean))
+    run_write()
+    #bean=standard_spider.Bean()
+    #bean.title="兵团检察院“两房”室内设计装修项目招标公告"
+    #print (needs(bean))
 
     #
     # string="2019-01-05"
