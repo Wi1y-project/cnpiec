@@ -136,15 +136,20 @@ def create_rowkey(i):
     return str(common_keys.KEY_TIME)+ "_" + fs + "_" + str.zfill(str(i), 5)
 
 def needs(bean):
+    for c0,key in enumerate(common_keys.keyword_arr3):
+        if key in bean.title:
+            return "n"
     for c, i in enumerate(common_keys.keyword_arr1):
-        if i in bean.cut:
+        if i in bean.title:
             return  "y"
         elif c == len(common_keys.keyword_arr1) - 1:
             for c2, j in enumerate(common_keys.keyword_arr2):
-                if j in bean.cut:
-                   return java_part(bean.cut)
+                if j in bean.title:
+                   # return java_part(bean.cut)
+                    pass
                 elif c2 == len(common_keys.keyword_arr2) - 1:
                    return "n"
+
 def java_part(parm):
 
     Trainer = JClass('Trainer')
@@ -169,7 +174,9 @@ class scheduler_thread(threading.Thread):
 
 
 if __name__ == '__main__':
-    run_write()
+    bean=standard_spider.Bean()
+    bean.title="]江西银信工程造价咨询有限公司关于南昌大学埋地固定式篮球架及悬浮运动地板采购项目"
+    print (needs(bean))
 
     #
     # string="2019-01-05"
