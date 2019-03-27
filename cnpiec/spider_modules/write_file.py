@@ -37,9 +37,9 @@ def reset_num():
             h = datetime.datetime.now().hour
             common_keys.LAST_ROWKEY_PROFIX = common_keys.ROWKEY_PROFIX
             if h < common_keys.SECOND_TIME:
-                common_keys.ROWKEY_PROFIX = str(common_keys.KEY_TIME) + common_keys.FIRST_TIME_S
+                common_keys.ROWKEY_PROFIX = str(common_keys.KEY_TIME)+"_" + common_keys.FIRST_TIME_S
             else:
-                common_keys.ROWKEY_PROFIX = str(common_keys.KEY_TIME) + common_keys.SECOND_TIME_S
+                common_keys.ROWKEY_PROFIX = str(common_keys.KEY_TIME)+"_" + common_keys.SECOND_TIME_S
             common_keys.ROWKEY_CONDITION.release()
             break
         else:
@@ -56,9 +56,9 @@ def reset_time():
             h = datetime.datetime.now().hour
             common_keys.LAST_ROWKEY_PROFIX = common_keys.ROWKEY_PROFIX
             if h < common_keys.SECOND_TIME:
-                common_keys.ROWKEY_PROFIX =str(common_keys.KEY_TIME)+common_keys.FIRST_TIME_S
+                common_keys.ROWKEY_PROFIX =str(common_keys.KEY_TIME)+"_"+common_keys.FIRST_TIME_S
             else:
-                common_keys.ROWKEY_PROFIX=str(common_keys.KEY_TIME)+common_keys.SECOND_TIME_S
+                common_keys.ROWKEY_PROFIX=str(common_keys.KEY_TIME)+"_"+common_keys.SECOND_TIME_S
             print_errs(common_keys.ERR_PATH)
             common_keys.ROWKEY_CONDITION.release()
             break
@@ -130,10 +130,10 @@ def print_errs(file):
 def create_rowkey(i):
     if common_keys.KEY_TIME==None:
         reset_time()
-    return common_keys.ROWKEY_PROFIX+str.zfill(str(i), 5)
+    return common_keys.ROWKEY_PROFIX+"_"+str.zfill(str(i), 5)
 
 def create_start_end_rowkey(start,end):
-    return common_keys.LAST_ROWKEY_PROFIX+str.zfill(str(start), 5),common_keys.LAST_ROWKEY_PROFIX+str.zfill(str(end), 5)
+    return common_keys.LAST_ROWKEY_PROFIX+"_"+str.zfill(str(start), 5),common_keys.LAST_ROWKEY_PROFIX+"_"+str.zfill(str(end), 5)
 
 
 def needs(bean):

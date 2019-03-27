@@ -6,7 +6,7 @@ class common_keys:
     #第一次执行时间
     FIRST_TIME=6
     #第二次执行时间
-    SECOND_TIME=18
+    SECOND_TIME=15
     #redis数据库IP
     REDIS_IP = "10.3.1.99"
     #redis端口

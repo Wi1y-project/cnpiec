@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="960179b1-a9e6-487d-8da9-a28098d5492c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/cnpiec.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cnpiec.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cnpiec/spider_modules/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/cnpiec/spider_modules/common.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cnpiec/spider_modules/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/cnpiec/spider_modules/tasks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cnpiec/spider_modules/write_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/cnpiec/spider_modules/write_file.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,8 +16,8 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/cnpiec$tasks.coverage" NAME="tasks Coverage Results" MODIFIED="1553653825875" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cnpiec/spider_modules" />
-    <SUITE FILE_PATH="coverage/cnpiec$write_file.coverage" NAME="write_file Coverage Results" MODIFIED="1553653794338" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cnpiec/spider_modules" />
+    <SUITE FILE_PATH="coverage/cnpiec$tasks.coverage" NAME="tasks Coverage Results" MODIFIED="1553668886783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cnpiec/spider_modules" />
+    <SUITE FILE_PATH="coverage/cnpiec$write_file.coverage" NAME="write_file Coverage Results" MODIFIED="1553668938565" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cnpiec/spider_modules" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="295140621">
@@ -24,20 +29,20 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="10" />
+          <entry key="py" value="21" />
           <entry key="txt" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="14" />
-          <entry key="Python" value="10" />
+          <entry key="Python" value="21" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="cfg" value="1" />
-          <entry key="py" value="4" />
+          <entry key="py" value="8" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
@@ -45,18 +50,46 @@
         <counts>
           <entry key="Ini" value="1" />
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="4" />
+          <entry key="Python" value="8" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/write_file.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="835">
-              <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
+            <state relative-caret-position="380">
+              <caret line="177" column="15" lean-forward="true" selection-start-line="177" selection-start-column="15" selection-end-line="177" selection-end-column="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_43.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-207" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/common.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="178">
+              <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/standard_spider.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="299">
+              <caret line="232" column="25" selection-start-line="232" selection-start-column="25" selection-end-line="232" selection-end-column="25" />
+              <folding>
+                <element signature="e#0#16#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -64,22 +97,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/tasks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="82" lean-forward="true" selection-start-line="82" selection-end-line="82" />
+            <state relative-caret-position="467">
+              <caret line="77" column="23" selection-start-line="77" selection-start-column="23" selection-end-line="77" selection-end-column="23" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/test.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/conf.cfg">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="15" column="23" lean-forward="true" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
+            <state relative-caret-position="207">
+              <caret line="9" column="22" lean-forward="true" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -87,7 +115,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/name_manager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="-1212">
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -106,8 +134,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/cnpiec/spider_modules/common.py" />
         <option value="$PROJECT_DIR$/cnpiec/spider_modules/write_file.py" />
+        <option value="$PROJECT_DIR$/cnpiec/spider_modules/common.py" />
+        <option value="$PROJECT_DIR$/cnpiec/spider_modules/tasks.py" />
       </list>
     </option>
   </component>
@@ -118,10 +147,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="555" />
-    <option name="y" value="-8" />
-    <option name="width" value="960" />
-    <option name="height" value="1040" />
+    <option name="x" value="34" />
+    <option name="y" value="36" />
+    <option name="width" value="722" />
+    <option name="height" value="820" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -170,6 +199,158 @@
       <recent name="C:\File\workspace\team\cnpiec" />
     </key>
   </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/cnpiec.iml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/misc.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/modules.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_modules/conf.cfg</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_21.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_25_A.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_26_A.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_26_B.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_26_C.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_26_D.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_26_E.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_40.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_41.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_42.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_45_B.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_5.py</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_12_A.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_12_B.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_13.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_14.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_15.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_19.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_1_A.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_1_B.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_20.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_22.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_3.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_32_A.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_32_B.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_34.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_35.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_36.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_38.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_4.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_43.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_44.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_7_A.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_7_B.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_9_A.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_9_B.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_9_C.py</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_9_D.py</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_1.py</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -182,7 +363,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.tasks">
+  <component name="RunManager" selected="Python.write_file">
     <configuration name="tasks" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="cnpiec" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -233,8 +414,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.tasks" />
         <item itemvalue="Python.write_file" />
+        <item itemvalue="Python.tasks" />
       </list>
     </recent_temporary>
   </component>
@@ -286,7 +467,14 @@
       <option name="project" value="LOCAL" />
       <updated>1553653871471</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="hrl 2019-03-27">
+      <created>1553655078687</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1553655078687</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -294,21 +482,22 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14538626" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.32844242" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49892703" visible="true" weight="0.32844242" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49946353" weight="0.3295711" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50053304" side_tool="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5005365" side_tool="true" weight="0.32844242" />
       <window_info anchor="bottom" id="Terminal" order="11" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -340,46 +529,68 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/common.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="62" column="44" selection-start-line="62" selection-start-column="44" selection-end-line="62" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cnpiec/readme.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/tasks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="82" lean-forward="true" selection-start-line="82" selection-end-line="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/test.py">
+    <entry file="file://$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_40.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/conf.cfg">
+    <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="15" column="23" lean-forward="true" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
+        <state relative-caret-position="414">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/name_manager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="-1212">
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/conf.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="9" column="22" lean-forward="true" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/write_file.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="835">
-          <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
+        <state relative-caret-position="380">
+          <caret line="177" column="15" lean-forward="true" selection-start-line="177" selection-start-column="15" selection-end-line="177" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cnpiec/spider_thread/cnpiec_43.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-207" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/common.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/tasks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="467">
+          <caret line="77" column="23" selection-start-line="77" selection-start-column="23" selection-end-line="77" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/standard_spider.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="232" column="25" selection-start-line="232" selection-start-column="25" selection-end-line="232" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
