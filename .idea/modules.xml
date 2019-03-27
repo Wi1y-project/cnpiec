@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/cnpiec.iml" filepath="$PROJECT_DIR$/.idea/cnpiec.iml" />
-      <module fileurl="file://C:/Program Files/Python36/cnpiec/.idea/cnpiec.iml" filepath="C:/Program Files/Python36/cnpiec/.idea/cnpiec.iml" />
     </modules>
   </component>
 </project>
