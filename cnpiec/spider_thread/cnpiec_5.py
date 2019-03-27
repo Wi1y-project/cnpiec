@@ -85,7 +85,7 @@ def test():
          # "http://cz.fjzfcg.gov.cn/3500/openbidlist/f9ebc6637c3641ee9017db2a94bfe5f0/?zone_code=3500&zone_name=%E7%9C%81%E6%9C%AC%E7%BA%A7"
     f = faker.Factory.create()
     ua = f.user_agent()
-    print(ua)
+
     cookies = {
         "csrftoken":"x8Q7GKWYqCf7E6AJ18FnPFzoRAe1vfYTgIZkdMaBrGzF2yqNjNwVDtlgZphgXPPf"
     }
@@ -100,10 +100,10 @@ def test():
         'Upgrade-Insecure-Requests': '1',
         'User-Agent': ua
          },cookies = cookies)
-    print (data.status_code)
+
     data.encoding = 'utf-8'
     data = data.text
-    print(data)
+
     soup = BeautifulSoup(data, "html.parser")
     div_tag= soup.find("div",class_="wrapTable")
     tbody=div_tag.find("tbody")
@@ -112,7 +112,4 @@ def test():
         url_n= "http://cz.fjzfcg.gov.cn" + a_tag["href"]
         date=tr.find_all("td")[1].text
         print(url_n,date)
-if __name__ == '__main__':
-    th=thrid(None)
-    th.test("http://cz.fjzfcg.gov.cn/3500/notice/f9ebc6637c3641ee9017db2a94bfe5f0/c0743c99c2234903a9c0861786acabf8/")
 

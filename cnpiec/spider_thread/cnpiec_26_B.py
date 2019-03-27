@@ -29,7 +29,7 @@ class first(ss.StartSpider):
 
         soup = BeautifulSoup(data, "html.parser")
 
-        div_tag = soup.find("div", class_="R_cont_detail")
+        div_tag = soup.find(attrs={"class": "R_cont_detail"})
         for li_tag in div_tag.find_all("li"):
             a_tag = li_tag.find("a")
             url_t = a_tag["href"]

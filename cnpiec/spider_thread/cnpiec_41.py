@@ -39,20 +39,3 @@ class thrid(ss.EndSpider):
         self.set_title(title)
         self.set_text(text)
 
-if __name__ == '__main__':
-    num=0
-    url = "http://zbxx.ycit.cn/zbxx/Index.asp?page=" + str(num + 1)
-    data = requests.get(url)
-    data.encoding = "gbk"
-    data = data.text
-    soup = BeautifulSoup(data, "html.parser")
-    table_tag = soup.find("table", width="722", height="500")
-    td = table_tag.find("td", width="722")
-    table = td.find("table")
-    for tr in table.find_all("tr"):
-        a = tr.find("a", target="_self")
-        date = tr.find("td", align="right")
-        if a == None:
-            continue
-        url_n = "http://zbxx.ycit.cn" + a["href"]
-        print(type(date),date.text.strip(),url_n)
