@@ -33,7 +33,7 @@ class first(ss.StartSpider):
 class thrid(ss.EndSpider):
     def get(self,url):
         resq = requests.get(url)
-        resq.encoding = "gbk"
+        resq.encoding = "utf8"
         data = resq.text
         soup = BeautifulSoup(data, "html.parser")
         table_tag = soup.find("table", id="tblInfo")
@@ -52,6 +52,10 @@ class thrid(ss.EndSpider):
             [s.extract() for s in div("style")]
             text = div.text
         text = "".join(text.split())
+        #print (text)
         self.set_text(text)
         self.set_title(title)
 
+if __name__ == '__main__':
+    t = thrid(None)
+    t.get('http://ggzy.xjbt.gov.cn/TPFront/infodetail/?infoid=d1e55488-abdd-458e-b46e-4fd619fc3cba&CategoryNum=004002002')

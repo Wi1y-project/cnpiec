@@ -2,7 +2,6 @@
 import requests
 from bs4 import  BeautifulSoup
 import cnpiec.spider_modules.standard_spider as ss
-from  cnpiec.spider_modules import name_manager
 import datetime
 import random
 import re
@@ -58,6 +57,4 @@ class thrid(ss.EndSpider):
         self.set_title(title)
         self.set_text(text)
 
-if __name__ == '__main__':
-    f=first(name_manager.Name_Manager("test"))
-    f.start()
+

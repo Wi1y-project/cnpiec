@@ -29,7 +29,7 @@ class first(ss.StartSpider):
 
         soup = BeautifulSoup(data, "html.parser")
 
-        div_tag = soup.find("div", class_="R_cont_detail")
+        div_tag = soup.find(attrs={"class": "R_cont_detail"})
         for li_tag in div_tag.find_all("li"):
             a_tag = li_tag.find("a")
             url_t = a_tag["href"]
@@ -62,27 +62,3 @@ class thrid(ss.EndSpider):
         self.set_title(title)
         self.set_text(text)
 
-
-if __name__ == '__main__':
-    num=0
-    if num == 0:
-        url = "http://www.njgp.gov.cn/cgxx/cggg/shdljg/index.html"
-    else:
-        url = "http://www.njgp.gov.cn/cgxx/cggg/shdljg/index_" + str(num) + ".html"
-
-    data = requests.get(url,headers={"Upgrade-Insecure-Requests": "1"})
-    data.encoding = 'utf-8'
-    data = data.text
-    print(data)
-    nums = re.search("index", url).span()
-    prefix = url[:nums[0]]
-
-    soup = BeautifulSoup(data, "html.parser")
-
-    div_tag = soup.find("div", class_="R_cont_detail")
-    for li_tag in div_tag.find_all("li"):
-        a_tag = li_tag.find("a")
-        url_t = a_tag["href"]
-        url_n = prefix + url_t[2:]
-        [s.extract() for s in li_tag("a")]
-        date = li_tag.text.strip()

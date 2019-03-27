@@ -7,6 +7,9 @@ class first(ss.StartSpider):
 
     def get(self,num):
         urls = []
+        urls_t = ["http://zbb.njau.edu.cn/pgoods", "http://zbb.njau.edu.cn/pservices",
+                  "http://zbb.njau.edu.cn/pprojects", "http://zbb.njau.edu.cn/pquick"]
+
         if num == 0:
             url = "http://zbb.njau.edu.cn/pquick/index.jhtml"
         else:
