@@ -46,9 +46,12 @@ class common_keys:
     WAIT_TIME=6
 
     KEY_NUM=0
+    KEY_NUM_NAME="key_num"
     KEY_TIME=None
+    KEY_TIME_NAME="key_time"
     FIRST_TIME_S="1"
     SECOND_TIME_S="2"
+    KEY_TIME_S_NAME="key_time_s"
     ROWKEY_PROFIX=None
     LAST_ROWKEY_PROFIX=None
     ROWKEY_CONDITION=threading.Condition()

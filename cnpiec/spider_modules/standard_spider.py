@@ -204,8 +204,6 @@ class EndSpider(threading.Thread):
                     bean.text = ""
                     self.nm.delete_url(bean.url)
                     self.nm.set_err(bean)
-
-
         logger.info(self.nm.name+ " end thread finsh!")
         self.nm.clear_done()
 

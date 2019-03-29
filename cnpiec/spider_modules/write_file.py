@@ -19,8 +19,6 @@ def create_single_file():
         os.mkdir(common_keys.FILE_PATH)
     return common_keys.FILE_PATH + "/CNPIEC.txt"
 
-
-
 def run_write():
     logger.info("write start...")
     file=create_single_file()
@@ -28,18 +26,12 @@ def run_write():
 
     write_file(file)
 
-
-
 def reset_num():
     while(True):
         if common_keys.ROWKEY_CONDITION.acquire():
             common_keys.KEY_NUM=0
-            h = datetime.datetime.now().hour
             common_keys.LAST_ROWKEY_PROFIX = common_keys.ROWKEY_PROFIX
-            if h < common_keys.SECOND_TIME:
-                common_keys.ROWKEY_PROFIX = str(common_keys.KEY_TIME)+"_" + common_keys.FIRST_TIME_S
-            else:
-                common_keys.ROWKEY_PROFIX = str(common_keys.KEY_TIME)+"_" + common_keys.SECOND_TIME_S
+            set_rowkey_profix()
             common_keys.ROWKEY_CONDITION.release()
             break
         else:
@@ -50,29 +42,33 @@ def reset_time():
         if common_keys.ROWKEY_CONDITION.acquire():
             common_keys.KEY_NUM = 0
 
-
+            # d = time.time()
             d = time.mktime(datetime.datetime.now().date().timetuple())
             common_keys.KEY_TIME = sys.maxsize - long(d)
-            h = datetime.datetime.now().hour
+
             common_keys.LAST_ROWKEY_PROFIX = common_keys.ROWKEY_PROFIX
-            if h < common_keys.SECOND_TIME:
-                common_keys.ROWKEY_PROFIX =str(common_keys.KEY_TIME)+"_"+common_keys.FIRST_TIME_S
-            else:
-                common_keys.ROWKEY_PROFIX=str(common_keys.KEY_TIME)+"_"+common_keys.SECOND_TIME_S
+            set_rowkey_profix()
             print_errs(common_keys.ERR_PATH)
+            name_manager.set_string(common_keys.KEY_TIME_NAME,str(common_keys.KEY_TIME))
             common_keys.ROWKEY_CONDITION.release()
             break
         else:
             common_keys.ROWKEY_CONDITION.wait()
     # print_errs(common_keys.ERR_PATH)
 
-
-
+def set_rowkey_profix():
+    h = datetime.datetime.now().hour
+    if h < common_keys.SECOND_TIME:
+        name_manager.set_string(common_keys.KEY_TIME_S_NAME,common_keys.FIRST_TIME_S)
+        common_keys.ROWKEY_PROFIX =str(common_keys.KEY_TIME)+"_"+common_keys.FIRST_TIME_S
+    else:
+        name_manager.set_string(common_keys.KEY_TIME_S_NAME, common_keys.SECOND_TIME_S)
+        common_keys.ROWKEY_PROFIX=str(common_keys.KEY_TIME)+"_"+common_keys.SECOND_TIME_S
 
 def write_file(file_path):
-    max_num = 0
+    max_num = load_num()
+    common_keys.KEY_NUM=max_num
     file=None
-    rowkey_file=None
 
     while (True):
         if not name_manager.has_next(common_keys.FINISH_LIST_NAME):
@@ -88,24 +84,20 @@ def write_file(file_path):
         bean.parser(string)
         bean.need = needs(bean)
         if common_keys.ROWKEY_CONDITION.acquire():
+            # print("================",max_num)
+            # print("==========",common_keys.KEY_NUM)
             if common_keys.KEY_NUM == 0 and max_num != 0:
-                # print("reset+++++++++++++++++++")
-                start_row ,end_row= create_start_end_rowkey(0,max_num)
-                if rowkey_file ==None:
-                    rowkey_file = open(common_keys.ROWKEY_PATH, "w+", encoding="UTF-8")
-                rowkey_file.write(common_keys.NOTE + common_keys.START_ROW + "=" + start_row + "\n" + common_keys.END_ROW + "=" + end_row)
-                rowkey_file.close()
-                rowkey_file=None
+                write_rowkey(max_num)
+
 
             max_num = common_keys.KEY_NUM
             rowkey = create_rowkey(max_num)
+            common_keys.KEY_NUM += 1
+            name_manager.set_string(common_keys.KEY_NUM_NAME,str(max_num))
             common_keys.ROWKEY_CONDITION.release()
         else:
             common_keys.ROWKEY_CONDITION.wait()
             continue
-
-
-        common_keys.KEY_NUM += 1
 
         bean.year=re.search("\d{4}",bean.date).group()
         bean.fill_date=str(datetime.datetime.now().date())
@@ -117,19 +109,59 @@ def write_file(file_path):
             file = open(file_path, "w+", encoding="utf-8")
         file.write(line + "\n")
 
-def print_errs(file):
+def write_rowkey(max_num):
+    start_row, end_row = create_start_end_rowkey(0, max_num)
+    rowkey_file = open(common_keys.ROWKEY_PATH, "w+", encoding="UTF-8")
+    # print("=============",start_row,end_row)
+    rowkey_file.write(
+        common_keys.NOTE + common_keys.START_ROW + "=" + start_row + "\n" + common_keys.END_ROW + "=" + end_row)
+    rowkey_file.close()
 
+def load_num():
+    '''
+    从redis中读取上次停止前的rowkey数据，并判断是否更新rowkey文件
+    :return:
+    '''
+    temp_num=name_manager.get_string(common_keys.KEY_NUM_NAME)
+    temp_time=name_manager.get_string(common_keys.KEY_TIME_NAME)
+    temp_s=name_manager.get_string(common_keys.KEY_TIME_S_NAME)
+
+    # print(temp_num,temp_time,temp_s)
+    if temp_num ==None:
+        return 0
+
+    d = time.mktime(datetime.datetime.now().date().timetuple())
+    common_keys.KEY_TIME = sys.maxsize - long(d)
+
+    if common_keys.KEY_TIME ==int(temp_time):
+        h = datetime.datetime.now().hour
+        if h < common_keys.SECOND_TIME:
+            common_keys.ROWKEY_PROFIX = str(common_keys.KEY_TIME) + "_" + common_keys.FIRST_TIME_S
+            return int(temp_num)
+        else:
+            if temp_s =="1":
+                common_keys.LAST_ROWKEY_PROFIX=temp_time+"_"+temp_s
+                write_rowkey(int(temp_num))
+                return 0
+            else:
+                return int(temp_num)
+    else:
+        common_keys.LAST_ROWKEY_PROFIX = temp_time + "_" + temp_s
+        write_rowkey(int(temp_num))
+        return 0
+
+def print_errs(file):
     if name_manager.has_next(common_keys.REDIS_ERR_NAME):
         err_file=open(file,"a+",encoding="utf-8")
         while(name_manager.has_next(common_keys.REDIS_ERR_NAME)):
             line=name_manager.get(common_keys.REDIS_ERR_NAME)
             err_file.write(str(datetime.datetime.now())+" "+line+"\n")
 
-
-
 def create_rowkey(i):
-    if common_keys.KEY_TIME==None:
+    if common_keys.KEY_TIME==None :
         reset_time()
+    if common_keys.ROWKEY_PROFIX ==None:
+        set_rowkey_profix()
     return common_keys.ROWKEY_PROFIX+"_"+str.zfill(str(i), 5)
 
 def create_start_end_rowkey(start,end):
@@ -164,10 +196,10 @@ def java_part(parm):
 class scheduler_thread(threading.Thread):
     def run(self):
         scheduler = BlockingScheduler()
-        # scheduler.add_job(func=reset_num,trigger="cron",day="*",hour=common_keys.SECOND_TIME)
-        # scheduler.add_job(func=reset_time, trigger="cron", day="*", hour="0")
+        scheduler.add_job(func=reset_num,trigger="cron",day="*",hour=common_keys.SECOND_TIME)
+        scheduler.add_job(func=reset_time, trigger="cron", day="*", hour="0")
 
-        scheduler.add_job(func=reset_time, trigger="cron", day="*", hour="*", minute="*")
+        # scheduler.add_job(func=reset_time, trigger="cron", day="*", hour="*", minute="*")
         scheduler.start()
 
 

@@ -83,6 +83,13 @@ def has_next(list_name):
 def get(list_name):
     return  redis_.lpop(list_name)
 
+def set_string(key,value):
+    redis_.set(key,value)
+
+def get_string(key):
+    return redis_.get(key)
+
+
 
 def query():
 
@@ -111,8 +118,10 @@ if __name__ == '__main__':
     #     print(create_rowkey(i))
     #     time.sleep(1)
     # redis_.srem("cnpiec_47_set","http://ecp.cnnc.com.cn/xzbgg/66179.jhtml")
-
-    for key in redis_.keys("cnpiec_42*"):
+    #
+    for key in redis_.keys("*"):
         redis_.delete(key)
-
-    query()
+    # print(redis_.get("key_time"))
+    # print(redis_.get("key_num"))
+    # print(redis_.get("key_time_s"))
+    # query()
