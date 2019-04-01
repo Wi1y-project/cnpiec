@@ -89,7 +89,6 @@ def write_file(file_path):
             if common_keys.KEY_NUM == 0 and max_num != 0:
                 write_rowkey(max_num)
 
-
             max_num = common_keys.KEY_NUM
             rowkey = create_rowkey(max_num)
             common_keys.KEY_NUM += 1
@@ -112,9 +111,11 @@ def write_file(file_path):
 def write_rowkey(max_num):
     start_row, end_row = create_start_end_rowkey(0, max_num)
     rowkey_file = open(common_keys.ROWKEY_PATH, "w+", encoding="UTF-8")
-    # print("=============",start_row,end_row)
+    rowkey_history=open(common_keys.ROWKEY_HISTORY_PATH,"a+",encoding="utf-8")
     rowkey_file.write(
         common_keys.NOTE + common_keys.START_ROW + "=" + start_row + "\n" + common_keys.END_ROW + "=" + end_row)
+    rowkey_history.write(str(datetime.datetime.now().date())+"    start:"+start_row+"    end:"+end_row+"\n")
+    rowkey_history.close()
     rowkey_file.close()
 
 def load_num():
@@ -196,10 +197,10 @@ def java_part(parm):
 class scheduler_thread(threading.Thread):
     def run(self):
         scheduler = BlockingScheduler()
-        scheduler.add_job(func=reset_num,trigger="cron",day="*",hour=common_keys.SECOND_TIME)
-        scheduler.add_job(func=reset_time, trigger="cron", day="*", hour="0")
+        # scheduler.add_job(func=reset_num,trigger="cron",day="*",hour=common_keys.SECOND_TIME)
+        # scheduler.add_job(func=reset_time, trigger="cron", day="*", hour="0")
 
-        # scheduler.add_job(func=reset_time, trigger="cron", day="*", hour="*", minute="*")
+        scheduler.add_job(func=reset_time, trigger="cron", day="*", hour="*", minute="*")
         scheduler.start()
 
 
@@ -208,6 +209,7 @@ class scheduler_thread(threading.Thread):
 
 if __name__ == '__main__':
     run_write()
+    # print(datetime.datetime.now().date())
     # bean=standard_spider.Bean()
     # bean.title="兵团检察院“两房”室内设计装修项目招标公告"
     # print(needs(bean))

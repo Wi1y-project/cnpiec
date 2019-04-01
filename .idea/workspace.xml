@@ -4,8 +4,6 @@
     <list default="true" id="960179b1-a9e6-487d-8da9-a28098d5492c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cnpiec/spider_modules/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/cnpiec/spider_modules/common.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cnpiec/spider_modules/name_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/cnpiec/spider_modules/name_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cnpiec/spider_modules/standard_spider.py" beforeDir="false" afterPath="$PROJECT_DIR$/cnpiec/spider_modules/standard_spider.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cnpiec/spider_modules/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/cnpiec/spider_modules/tasks.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cnpiec/spider_modules/write_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/cnpiec/spider_modules/write_file.py" afterDir="false" />
     </list>
@@ -16,8 +14,8 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/cnpiec$tasks.coverage" NAME="tasks Coverage Results" MODIFIED="1553845503789" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cnpiec/spider_modules" />
-    <SUITE FILE_PATH="coverage/cnpiec$write_file.coverage" NAME="write_file Coverage Results" MODIFIED="1553845586832" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cnpiec/spider_modules" />
+    <SUITE FILE_PATH="coverage/cnpiec$tasks.coverage" NAME="tasks Coverage Results" MODIFIED="1554096632000" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cnpiec/spider_modules" />
+    <SUITE FILE_PATH="coverage/cnpiec$write_file.coverage" NAME="write_file Coverage Results" MODIFIED="1554096394153" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cnpiec/spider_modules" />
     <SUITE FILE_PATH="coverage/cnpiec$name_manager.coverage" NAME="name_manager Coverage Results" MODIFIED="1553845497170" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cnpiec/spider_modules" />
   </component>
   <component name="FUSProjectUsageTrigger">
@@ -27,19 +25,20 @@
           <entry key="project.closed" value="2" />
           <entry key="project.open.time.0" value="3" />
           <entry key="project.open.time.16" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="845" />
-          <entry key="txt" value="14" />
+          <entry key="py" value="1003" />
+          <entry key="txt" value="35" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="14" />
-          <entry key="Python" value="845" />
+          <entry key="PLAIN_TEXT" value="35" />
+          <entry key="Python" value="1003" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -60,11 +59,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/common.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+            <state relative-caret-position="398">
+              <caret line="47" column="93" lean-forward="true" selection-start-line="40" selection-start-column="3" selection-end-line="47" selection-end-column="93" />
             </state>
           </provider>
         </entry>
@@ -72,7 +71,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/standard_spider.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="712">
+            <state relative-caret-position="-2807">
               <caret line="205" column="41" selection-start-line="205" selection-start-column="41" selection-end-line="205" selection-end-column="41" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
@@ -84,8 +83,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/tasks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="93" lean-forward="true" selection-start-line="93" selection-end-line="93" />
+            <state relative-caret-position="996">
+              <caret line="94" lean-forward="true" selection-start-line="94" selection-end-line="94" />
             </state>
           </provider>
         </entry>
@@ -102,7 +101,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/name_manager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="283">
+            <state relative-caret-position="574">
               <caret line="122" column="26" lean-forward="true" selection-start-line="122" selection-start-column="26" selection-end-line="122" selection-end-column="26" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
@@ -112,17 +111,15 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/write_file.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="219" column="11" selection-start-line="219" selection-start-column="6" selection-end-line="219" selection-end-column="11" />
+            <state relative-caret-position="357">
+              <caret line="117" column="26" lean-forward="true" selection-start-line="117" selection-start-column="26" selection-end-line="117" selection-end-column="26" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
-                <marker date="1553845693460" expanded="true" signature="1810:2249" ph="..." />
-                <marker date="1553845693460" expanded="true" signature="3943:4285" ph="..." />
-                <marker date="1553845693460" expanded="true" signature="4373:5386" ph="..." />
-                <marker date="1553845693460" expanded="true" signature="5407:5412" ph="..." />
+                <marker date="1554096388785" expanded="true" signature="1810:2249" ph="..." />
+                <marker date="1554096388785" expanded="true" signature="3942:4452" ph="..." />
               </folding>
             </state>
           </provider>
@@ -145,10 +142,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/cnpiec/spider_modules/standard_spider.py" />
-        <option value="$PROJECT_DIR$/cnpiec/spider_modules/tasks.py" />
         <option value="$PROJECT_DIR$/cnpiec/spider_modules/name_manager.py" />
-        <option value="$PROJECT_DIR$/cnpiec/spider_modules/common.py" />
         <option value="$PROJECT_DIR$/cnpiec/spider_modules/write_file.py" />
+        <option value="$PROJECT_DIR$/cnpiec/spider_modules/tasks.py" />
+        <option value="$PROJECT_DIR$/cnpiec/spider_modules/common.py" />
       </list>
     </option>
   </component>
@@ -170,6 +167,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -198,7 +196,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -223,7 +220,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.write_file">
+  <component name="RunManager" selected="Python.tasks">
     <configuration name="name_manager" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="cnpiec" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -297,8 +294,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.write_file" />
         <item itemvalue="Python.tasks" />
+        <item itemvalue="Python.write_file" />
         <item itemvalue="Python.name_manager" />
       </list>
     </recent_temporary>
@@ -365,7 +362,14 @@
       <option name="project" value="LOCAL" />
       <updated>1553678577293</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="hrl 2019-03-27&#10;存储rowkey相关信息到redis中">
+      <created>1553845745097</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1553845745097</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -375,7 +379,7 @@
     <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15182403" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23390558" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -410,7 +414,8 @@
     <MESSAGE value="wl 3-27" />
     <MESSAGE value="hrl" />
     <MESSAGE value="hrl 2019-03-27" />
-    <option name="LAST_COMMIT_MESSAGE" value="hrl 2019-03-27" />
+    <MESSAGE value="hrl 2019-03-27&#10;存储rowkey相关信息到redis中" />
+    <option name="LAST_COMMIT_MESSAGE" value="hrl 2019-03-27&#10;存储rowkey相关信息到redis中" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/cnpiec/readme.txt">
@@ -437,9 +442,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
           <caret line="25" column="14" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#70#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -457,40 +459,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/conf.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/tasks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="93" lean-forward="true" selection-start-line="93" selection-end-line="93" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/standard_spider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="712">
-          <caret line="205" column="41" selection-start-line="205" selection-start-column="41" selection-end-line="205" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/common.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/name_manager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
+        <state relative-caret-position="574">
           <caret line="122" column="26" lean-forward="true" selection-start-line="122" selection-start-column="26" selection-end-line="122" selection-end-column="26" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
@@ -499,17 +470,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/conf.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/standard_spider.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2807">
+          <caret line="205" column="41" selection-start-line="205" selection-start-column="41" selection-end-line="205" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/write_file.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="219" column="11" selection-start-line="219" selection-start-column="6" selection-end-line="219" selection-end-column="11" />
+        <state relative-caret-position="357">
+          <caret line="117" column="26" lean-forward="true" selection-start-line="117" selection-start-column="26" selection-end-line="117" selection-end-column="26" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <marker date="1553845693460" expanded="true" signature="1810:2249" ph="..." />
-            <marker date="1553845693460" expanded="true" signature="3943:4285" ph="..." />
-            <marker date="1553845693460" expanded="true" signature="4373:5386" ph="..." />
-            <marker date="1553845693460" expanded="true" signature="5407:5412" ph="..." />
+            <marker date="1554096388785" expanded="true" signature="1810:2249" ph="..." />
+            <marker date="1554096388785" expanded="true" signature="3942:4452" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/tasks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="996">
+          <caret line="94" lean-forward="true" selection-start-line="94" selection-end-line="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cnpiec/spider_modules/common.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="398">
+          <caret line="47" column="93" lean-forward="true" selection-start-line="40" selection-start-column="3" selection-end-line="47" selection-end-column="93" />
         </state>
       </provider>
     </entry>
