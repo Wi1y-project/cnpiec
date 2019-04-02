@@ -25,27 +25,27 @@ class common_keys:
     NEED = "need"
 
     #文件下载路径
-    FILE_PATH = "C:/SpiderResultFile"
-    #错误文件路径
-    ERR_PATH = "C:/temp/err"
-    #写日志的文件路径
-    LOGGER_PATH = "C:/temp/loger.log"
-    #rowkey路径
-    ROWKEY_PATH="C:/SpiderResultFile/kettle.properties"
-    ROWKEY_HISTORY_PATH="C:/SpiderResultFile/rowkeyhistory.txt"
-    jvmPath = 'C:/File/soft/java/jre1.8/bin/server/jvm.dll'
-    JAR_PATH = "D:/classifier.jar"
-    THULAC_MODEL_PATH = 'C:/File/soft/python36/Lib/site-packages/thulac/models'
+    # FILE_PATH = "C:/SpiderResultFile"
+    # #错误文件路径
+    # ERR_PATH = "C:/temp/err"
+    # #写日志的文件路径
+    # LOGGER_PATH = "C:/temp/loger.log"
+    # #rowkey路径
+    # ROWKEY_PATH="C:/SpiderResultFile/kettle.properties"
+    # ROWKEY_HISTORY_PATH="C:/SpiderResultFile/rowkeyhistory.txt"
+    # jvmPath = 'C:/File/soft/java/jre1.8/bin/server/jvm.dll'
+    # JAR_PATH = "D:/classifier.jar"
+    # THULAC_MODEL_PATH = 'C:/File/soft/python36/Lib/site-packages/thulac/models'
 
 
-    # FILE_PATH = "/home/ntrl"
-    # ERR_PATH = "/home/ntrl/temp/err"
-    # LOGGER_PATH = "/home/ntrl/temp/loger.log"
-    # ROWKEY_PATH = "/root/.kettle/kettle.properties"
-    # ROWKEY_HISTORY_PATH=""
-    # jvmPath = '/usr/java/jdk1.7.0_67/jre/lib/amd64/server/libjvm.so'
-    # JAR_PATH = "/home/classifier.jar"
-    # THULAC_MODEL_PATH = '/opt/toolsrc/py/python3/lib/python3.6/site-packages/thulac/models'
+    FILE_PATH = "/home/ntrl"
+    ERR_PATH = "/home/ntrl/temp/err"
+    LOGGER_PATH = "/home/ntrl/temp/loger.log"
+    ROWKEY_PATH = "/root/.kettle/kettle.properties"
+    ROWKEY_HISTORY_PATH="/root/.kettle/row_key.txt"
+    jvmPath = '/usr/java/jdk1.7.0_67/jre/lib/amd64/server/libjvm.so'
+    JAR_PATH = "/home/classifier.jar"
+    THULAC_MODEL_PATH = '/opt/toolsrc/py/python3/lib/python3.6/site-packages/thulac/models'
 
 
     #无数据时，等待时间
@@ -72,8 +72,8 @@ class common_keys:
 
     keyword_arr1 = ["文献", "纸质", "纸本", "数据库", "画册", "杂志", "书刊", "报刊", "期刊", "刊物", "期刊订购", "原版图书", "外文图书", "纸质图书", "图书供货",
                     "图书供应", "图书购置", "图书采购", "图书资料", "图书项目", "古籍", "书籍", "电子图书", "电子资源", "全文", "馆配", "馆藏", "订购", "续订",
-                    "增订", "查阅", "订阅", "阅览", "编目", "唱片", "平台采购", "数据编制", "数据处理", "数据加工", "数据获取", "数据资源", "数字资源", "网络资源",
-                    "资源建设", "资料购买", "软件租赁", "爱思唯尔", "外版", "使用权", "会议录"]
+                    "增订", "查阅", "订阅", "编目", "唱片", "数据编制", "数据处理", "数据加工", "数据获取", "数字资源", "网络资源",
+                    "资源建设", "资料购买", "软件租赁", "爱思唯尔", "外版", "会议录", "图书进口", "进口图书", "期刊进口", "进口期刊"]
     keyword_arr2 = ["图书", "书", "刊", "库", "报", "软件", "档案", "资料", "材料", "数据", "合集", "电子", "数字化", "图书馆", "索引"]
     keyword_arr3 = ['发电机', '食堂', '垃圾', '设施', '食品', '街道', '电梯', '车辆', '物业', '办公', '小学', '桌椅', '监狱', '棚户区', '办公室', '空调',
                     '网络', '机关', '幼儿园', '卫生院', '行政', '道路', '粮食', '药品', '物资', '住房', '汽车', '危房', '管理处', '教室', '警察', '公寓',
@@ -127,7 +127,7 @@ class common_keys:
                     '单元E', '信息网', '液晶', '居住点', '大路', '王棚', '计算机', '计算机房', '空地', '原子能', '轴向', '性能', '回路', '科技园区', '楼墙',
                     '铝合金', '核电', '网球场', '总包', '起重机', '物项', '核燃料', '元件', '控制棒', '控制室', '6电机', '叶轮', '组件', '整体性', '气体',
                     '动力', '山棚', '水箱', '海湾', '山水管', '松材', '线虫病', '中介', '公告号', '配电房', '石头', '住院楼', '金税', '橱柜', '高铁进',
-                    '站路', '血透室', '法院', '农牧厅', '工信厅', '通讯', '时分区', '会场', '理学院', 'A座教学', '石工', '高主教', '学楼', '备品', '酒仙桥',
+                    '站路', '血透室', '法院', '农牧厅', '工信厅', '通讯', '时分区', '会场', 'A座教学', '石工', '高主教', '学楼', '备品', '酒仙桥',
                     '主干', '发射机', '工商所', '电暖', '效林', '广播站', '学士', '分户', '科学技术馆', '剂熨剂', 'A包', '疫苗', '柳浪', '床架', '实事',
                     '驻地', '财物', '饭店', '悦心桥', '浮雕', '酒钢', '史馆', '迎宾路', '农场路', '交叉口', '片棚', '桃园楼', '哨校区', '阳台', '外事',
                     '工程费', '要素', '地瓜', '晨会', '段棚', '胶林', '居民', '水电气', '白银', '高新技术', '农宅', '政府性', '债务', '国际物', '泊位',
@@ -176,9 +176,9 @@ class common_keys:
                     '展示室', '音像', '校医院', '校校', '公寓椅', '辅警', '配饰', '警服', 'LDR病区', '织品', '病人', '食盐', '门吊', '假肢', '列车',
                     '楼体', '内科', '透析室', '麻醉科', '关系', '气功', '租班车', '场口', '安全员', '劳务费', 'POS机', '终端机', '图形', '机车', '课程',
                     '教材', '荣誉', '巡诊车', '习艺', '停车位', '原型', '燃油', '降尘车', '班车', '公交车', '单车', '单一性', '公务车', '校车', '非机动车',
-                    '士官', '宫物业', '序物业', '物质', '遗产', '故居', '展示厅', '文体', '基础园区', '外包增项', '大礼堂', '净月', '创业园', '聚集园',
+                    '士官', '宫物业', '序物业', '物质', '遗产', '故居', '展示厅', '基础园区', '外包增项', '大礼堂', '净月', '创业园', '聚集园',
                     '金韵华庭', '圩墩', '遗址', '红绿灯', '控制机', '钟楼', '海港', '教育厅', '妇科', '无影灯', '先导区', '都市', '农民', '经理', '特色',
-                    '毕节西派', '澜岸', '电梯间', '乘客', '急诊', '科技园', '后勤处', '亮灯', '杂厨', '洗碗机', '租赁车', '网约车', '分院', '资源库', '肉类',
+                    '毕节西派', '澜岸', '电梯间', '乘客', '急诊', '科技园', '后勤处', '亮灯', '杂厨', '洗碗机', '租赁车', '网约车', '分院', '肉类',
                     '库房', '民兵', '熟食品', '重点段', '门诊', '血透病区', '厨师', '班包', '风景', '名胜区', '晖苑', '节日', '乐清', '教工', '绍剧', '民警',
                     '副食', '物流', '篮球', '联赛', '中心人', '社楼', '餐椅', '超市', '食品园', '骨伤', '风险', '寄生虫', '新贵', '干菜', '糕点', '托管费',
                     '电瓶', '四海', '印刷品', '草坪', '牛奶', '复印机', '粉盒', '集贤楼', '食堂厅', '杂件', '膳食', '大豆', '公开赛', '厨具', '快检箱',

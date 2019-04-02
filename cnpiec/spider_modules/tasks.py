@@ -90,13 +90,13 @@ def test():
 
 
 if __name__ == '__main__':
-    test()
+    #test()
 
 
     # query()
-    # scheduler=BlockingScheduler()
-    # scheduler.add_job(func=run,trigger="cron",day="*",hour="0,12")
-    # scheduler.start()
+    scheduler=BlockingScheduler()
+    scheduler.add_job(func=run,trigger="cron",day="*",hour="0,12")
+    scheduler.start()
 
     # scheduler=BlockingScheduler()
     # scheduler.add_job(func=test,trigger="cron",day="*",hour="14",minute="*")

@@ -197,10 +197,10 @@ def java_part(parm):
 class scheduler_thread(threading.Thread):
     def run(self):
         scheduler = BlockingScheduler()
-        # scheduler.add_job(func=reset_num,trigger="cron",day="*",hour=common_keys.SECOND_TIME)
-        # scheduler.add_job(func=reset_time, trigger="cron", day="*", hour="0")
+        scheduler.add_job(func=reset_num,trigger="cron",day="*",hour=common_keys.SECOND_TIME)
+        scheduler.add_job(func=reset_time, trigger="cron", day="*", hour="0")
 
-        scheduler.add_job(func=reset_time, trigger="cron", day="*", hour="*", minute="*")
+        #scheduler.add_job(func=reset_time, trigger="cron", day="*", hour="*", minute="*")
         scheduler.start()
 
 
