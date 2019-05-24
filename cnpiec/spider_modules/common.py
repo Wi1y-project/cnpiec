@@ -51,6 +51,10 @@ class common_keys:
     #无数据时，等待时间
     WAIT_TIME=6
 
+    #线程运行最长时间（秒）
+    THREAD_MAX_RUN_TIME=20
+    # THREAD_MAX_RUN_TIME=21600
+
     KEY_NUM=0
     KEY_NUM_NAME="key_num"
     KEY_TIME=None

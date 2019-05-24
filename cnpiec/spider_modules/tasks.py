@@ -75,10 +75,10 @@ class Conf_Parser(ConfigParser):
 
 def test():
     thread = []
-    pyname = "cnpiec_12_B"
+    pyname = "cnpiec_21"
     first = "first"
-    # second = "thrid"
-    second = "second"
+    second = "thrid"
+    # second = "second"
 
     run_single(pyname, first, second, thread)
 

@@ -4,7 +4,6 @@ import random
 import datetime
 import time
 import json
-import thulac
 from cnpiec.spider_modules.common import common_keys
 
 logger=logging.getLogger("logger")
@@ -30,10 +29,14 @@ class StartSpider(threading.Thread):
     def run(self):
         logger.info(self.nm.name+" StartSpider start as "+self.name+"...")
         i=0
+        end_time=time.time()+common_keys.THREAD_MAX_RUN_TIME
 
         err_time=0
         err_count=0
         while(True):
+            if time.time()>end_time:
+                logger.info("运行时间过长，强制停止。")
+                exit(0)
             logger.info(self.nm.name + "__"+self.name+" run page: "+str(i))
             try:
                 time.sleep(random.random()*3)
@@ -170,7 +173,7 @@ class EndSpider(threading.Thread):
 
     def run(self):
         logger.info(self.nm.name+" end thread start as "+self.name+"...")
-
+        end_time = time.time() + common_keys.THREAD_MAX_RUN_TIME
         while (True):
             if self.nm.has_next():
                 bean=Bean()
@@ -182,6 +185,11 @@ class EndSpider(threading.Thread):
                     logger.info(self.nm.name + "__"+self.name+" end thread :当前任务已完成，等待新任务...")
                     time.sleep(10)
                     continue
+
+            if time.time() > end_time:
+                logger.info("运行时间过长，强制停止。")
+                exit(0)
+
             try:
                 logger.info(self.nm.name + "__"+self.name+ " 开始爬取："+bean.url)
                 time.sleep(random.random()*3)
@@ -260,7 +268,7 @@ class increment():
     def __init__(self,nm):
         self.nm=nm
         self.format="%Y-%m-%d"
-        self.default_date="2019-5-24"
+        self.default_date="2019-5-01"
         self.current_date=None
         self.last_date=None
         self.url_date=None
