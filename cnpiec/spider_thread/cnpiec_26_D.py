@@ -20,6 +20,7 @@ class first(ss.StartSpider):
         header = {"User-Agent":
                       "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36",
                   "Upgrade-Insecure-Requests": "1"}
+        print(url)
         data = requests.get(url, headers=header)
         data.encoding = 'utf-8'
         data = data.text
@@ -61,4 +62,11 @@ class thrid(ss.EndSpider):
         text = "".join(text.split())
         self.set_title(title)
         self.set_text(text)
-
+if __name__ == '__main__':
+    url = "http://www.njgp.gov.cn/cgxx/cggg/shdljg/index.html"
+    header = {"User-Agent":
+                      "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36",
+                  "Upgrade-Insecure-Requests": "1"}
+    data = requests.get(url, headers=header)
+    data.encoding = 'utf-8'
+    print(data.text)

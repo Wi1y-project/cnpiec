@@ -39,7 +39,7 @@ class first(ss.StartSpider):
             url_n = 'http:' + a.find('a').get('href')
             map[url_n] = a.find('a').find('span').get_text()
             date = a.find_all('td')[3].get_text()
-            self.set_list(urls,url_n,date)
+            self.set_list(urls,url_n,date,a.find('a').find('span').get_text())
             
         return urls
 
@@ -48,11 +48,7 @@ class first(ss.StartSpider):
 class thrid(ss.EndSpider):
     def get(self,url):
 
-
-        title = map[url]
-
         text = 'empty'
         self.set_text(text)
-        self.set_title(title)
 
 

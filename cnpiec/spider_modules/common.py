@@ -25,27 +25,27 @@ class common_keys:
     NEED = "need"
 
     #文件下载路径
-    # FILE_PATH = "C:/SpiderResultFile"
-    # #错误文件路径
-    # ERR_PATH = "C:/temp/err"
-    # #写日志的文件路径
-    # LOGGER_PATH = "C:/temp/loger.log"
-    # #rowkey路径
-    # ROWKEY_PATH="C:/SpiderResultFile/kettle.properties"
-    # ROWKEY_HISTORY_PATH="C:/SpiderResultFile/rowkeyhistory.txt"
-    # jvmPath = 'C:/File/soft/java/jre1.8/bin/server/jvm.dll'
-    # JAR_PATH = "D:/classifier.jar"
-    # THULAC_MODEL_PATH = 'C:/File/soft/python36/Lib/site-packages/thulac/models'
+    FILE_PATH = "C:/SpiderResultFile"
+    #错误文件路径
+    ERR_PATH = "C:/temp/err"
+    #写日志的文件路径
+    LOGGER_PATH = "C:/temp/loger.log"
+    #rowkey路径
+    ROWKEY_PATH="C:/SpiderResultFile/kettle.properties"
+    ROWKEY_HISTORY_PATH="C:/SpiderResultFile/rowkeyhistory.txt"
+    jvmPath = 'C:/File/soft/java/jdk1.8/jre/bin/server/jvm.dll'
+    JAR_PATH = "D:/classifier.jar"
+    THULAC_MODEL_PATH = 'C:/File/soft/python36/Lib/site-packages/thulac/models'
 
 
-    FILE_PATH = "/home/ntrl"
-    ERR_PATH = "/home/ntrl/temp/err"
-    LOGGER_PATH = "/home/ntrl/temp/loger.log"
-    ROWKEY_PATH = "/root/.kettle/kettle.properties"
-    ROWKEY_HISTORY_PATH="/root/.kettle/row_key.txt"
-    jvmPath = '/usr/java/jdk1.7.0_67/jre/lib/amd64/server/libjvm.so'
-    JAR_PATH = "/home/classifier.jar"
-    THULAC_MODEL_PATH = '/opt/toolsrc/py/python3/lib/python3.6/site-packages/thulac/models'
+    # FILE_PATH = "/home/ntrl"
+    # ERR_PATH = "/home/ntrl/temp/err"
+    # LOGGER_PATH = "/home/ntrl/temp/loger.log"
+    # ROWKEY_PATH = "/root/.kettle/kettle.properties"
+    # ROWKEY_HISTORY_PATH="/root/.kettle/row_key.txt"
+    # jvmPath = '/usr/java/jdk1.7.0_67/jre/lib/amd64/server/libjvm.so'
+    # JAR_PATH = "/home/classifier.jar"
+    # THULAC_MODEL_PATH = '/opt/toolsrc/py/python3/lib/python3.6/site-packages/thulac/models'
 
 
     #无数据时，等待时间

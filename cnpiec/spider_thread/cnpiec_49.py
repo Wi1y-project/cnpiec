@@ -26,7 +26,7 @@ class first(ss.StartSpider):
             url_n = "http://htgs.ccgp.gov.cn/GS8/contractpublish" + a["href"][1:]
             string = li_tag.text
             start = string.index("发布时间：")
-            end = string.index("采购人：")
+            end = string.index("地域：")
             date = string[start + 5:end].strip()
             self.set_list(urls,url_n,date)
 

@@ -21,8 +21,11 @@ class StartSpider(threading.Thread):
     def get(self,num):
         pass
 
-    def set_list(self,list,url,date):
-        list.append((url,date))
+    def set_list(self,list,url,date,*title):
+        if title:
+            list.append((url,date,title[0]))
+        else:
+            list.append((url,date))
 
     def run(self):
         logger.info(self.nm.name+" StartSpider start as "+self.name+"...")
@@ -57,17 +60,32 @@ class StartSpider(threading.Thread):
             has_increment=False
             # print("---------------------","page"+str(i))
             for item in list:
-                url=item[0]
-                date=item[1]
-                # print(url,date)
-                if self.url_increment.date_compare(date):
-                    if self.url_increment.url_compare(url,date):
-                        bean=Bean()
-                        bean.date=date
-                        bean.url=url
-                        self.nm.put_bean(bean)
-                        has_increment=True
-                    do_exit=False
+                if len(item)==3:
+                    url = item[0]
+                    date = item[1]
+                    title=item[2]
+                    # print(url,date)
+                    if self.url_increment.date_compare(date):
+                        if self.url_increment.url_compare(url, date):
+                            bean = Bean()
+                            bean.date = date
+                            bean.url = url
+                            bean.title=title
+                            self.nm.put_bean(bean)
+                            has_increment = True
+                        do_exit = False
+                else:
+                    url=item[0]
+                    date=item[1]
+                    # print(url,date)
+                    if self.url_increment.date_compare(date):
+                        if self.url_increment.url_compare(url,date):
+                            bean=Bean()
+                            bean.date=date
+                            bean.url=url
+                            self.nm.put_bean(bean)
+                            has_increment=True
+                        do_exit=False
 
             if not has_increment :
                 self.null_num+=1
@@ -139,7 +157,7 @@ class EndSpider(threading.Thread):
         self.nm=nm
         self.temp_title=None
         self.temp_text=None
-        self.thu1 = thulac.thulac(model_path = common_keys.THULAC_MODEL_PATH)
+
 
     def get(self,url):
         pass
@@ -210,14 +228,14 @@ class EndSpider(threading.Thread):
 
 
     def set_parm(self,bean):
-
-        if self.temp_title == None:
+        print(bean.title)
+        if self.temp_title == None and bean.title == None:
             raise ValueError("title 不能为空！")
 
         if self.temp_text == None:
             raise ValueError("text 不能为空！")
-
-        bean.title=self.temp_title
+        if self.temp_title!=None:
+            bean.title=self.temp_title
         self.temp_title=None
         bean.text=self.temp_text
         self.temp_text=None
@@ -228,57 +246,6 @@ class EndSpider(threading.Thread):
             bean.name=self.nm.name
         bean.title="".join(bean.title.split())
         bean.text="".join(bean.text.split())
-        bean.cut=self.do_cut(bean.title)
-        bean.responsible = self.responsible(bean.url)
-        # bean.need = self.java_part(bean.title)
-
-    def do_cut(self,title):
-        a = ""
-        cuts = self.thu1.cut(title, text=False)
-        for i in cuts:
-            if 'n' == i[1] or 'v' == i[1] or 'a' == i[1] or 'j' == i[1] or 'x' == i[1] or 'd' == i[1] or 'g' == i[1]:
-                a += i[0] + ' '
-        return a
-
-    # def java_part(self, parm):
-    #
-    #     Trainer = JClass('Trainer')
-    #     t = Trainer()
-    #     t.setMode(t.inPut())
-    #     t.processText(parm)
-    #     res = t.getResult()
-    #     if 'y' in res:
-    #         return 's'
-    #     else:
-    #         return res
-
-    def responsible(self,site):
-
-        if '/' in site.replace('http://', '').replace('https://', ''):
-            site = site.replace('http://', '').replace('https://', '').split('/')[0].strip()
-        else:
-            site = site.replace('http://', '').replace('https://', '').strip()
-
-        site_map = {
-            'www.gzsggzyjyzx.cn': '王洋',
-            'www.ccgp-jiangsu.gov.cn': '何一石',
-            'www.ccgp-shandong.gov.cn': '孟宏权',
-            'cgb.xjtu.edu.cn': '秦超,刘波',
-            'ggzy.xjbt.gov.cn': '刘波',
-            'zbxx.ycit.cn': '王美怡',
-            'www.ccgp-yancheng.gov.cn': '何一石',
-            'www.zjzfcg.gov.cn': '董伟琨',
-            'www.bidchance.com': '孟宏权,杨跃,高世明,张琦,杨跃,杜士荣,秦超,赵潇潇,刘柳,姜波,郑子玉,沈婧男,肖俊文,李东海',
-            'www.ccgp.gov.cn': '王雪娟,肖俊文,刘波,刘向平,孟宏权,刘波,师光辉,张洁,骆金伟,李晓光,金丽荣,姜波,沈婧男,赵潇潇,李东海,孙秀焕,杨跃,王洋,刘默'
-        }
-
-        try:
-            return site_map[site]
-        except:
-            return '无负责人'
-
-
-
 
     def test(self,url):
         bean=Bean()
@@ -293,7 +260,7 @@ class increment():
     def __init__(self,nm):
         self.nm=nm
         self.format="%Y-%m-%d"
-        self.default_date="2019-1-29"
+        self.default_date="2019-5-24"
         self.current_date=None
         self.last_date=None
         self.url_date=None

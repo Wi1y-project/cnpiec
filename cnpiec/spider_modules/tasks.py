@@ -75,9 +75,10 @@ class Conf_Parser(ConfigParser):
 
 def test():
     thread = []
-    pyname = "cnpiec_15"
+    pyname = "cnpiec_12_B"
     first = "first"
-    second = "thrid"
+    # second = "thrid"
+    second = "second"
 
     run_single(pyname, first, second, thread)
 
@@ -90,13 +91,13 @@ def test():
 
 
 if __name__ == '__main__':
-    #test()
+    test()
 
 
     # query()
-    scheduler=BlockingScheduler()
-    scheduler.add_job(func=run,trigger="cron",day="*",hour="0,12")
-    scheduler.start()
+    # scheduler=BlockingScheduler()
+    # scheduler.add_job(func=run,trigger="cron",day="*",hour="*",minute="0,10,20,30,40,50")
+    # scheduler.start()
 
     # scheduler=BlockingScheduler()
     # scheduler.add_job(func=test,trigger="cron",day="*",hour="14",minute="*")

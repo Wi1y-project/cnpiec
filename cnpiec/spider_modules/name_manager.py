@@ -120,6 +120,7 @@ if __name__ == '__main__':
     # redis_.srem("cnpiec_47_set","http://ecp.cnnc.com.cn/xzbgg/66179.jhtml")
     #
     for key in redis_.keys("*"):
+        print(key)
         redis_.delete(key)
     # print(redis_.get("key_time"))
     # print(redis_.get("key_num"))

@@ -10,10 +10,11 @@ import jpype
 from jpype import *
 from cnpiec.spider_modules.tasks import logger
 import threading
+import thulac
 
 
 jpype.startJVM(common_keys.jvmPath, "-Djava.class.path="+common_keys.JAR_PATH)
-
+thu1 = thulac.thulac(model_path=common_keys.THULAC_MODEL_PATH)
 def create_single_file():
     if not os.path.exists(common_keys.FILE_PATH):
         os.mkdir(common_keys.FILE_PATH)
@@ -101,12 +102,50 @@ def write_file(file_path):
         bean.year=re.search("\d{4}",bean.date).group()
         bean.fill_date=str(datetime.datetime.now().date())
 
-        line = rowkey + "##" + bean.name + "##" +bean.customerid+"##"+bean.year+"##"+bean.flag+"##"+bean.title+"##"+bean.url+"##"+bean.fill_date+"##"+bean.date+"##"+bean.operator+"##"+bean.need+"##"+bean.text
+        bean.cut = do_cut(bean.title)
+        bean.responsible = responsible(bean.url)
+        print(bean.cut,bean.responsible)
+        line = rowkey + "##" + bean.name + "##" + bean.customerid + "##" + bean.year + "##" + bean.flag + "##" + bean.title + "##" + bean.url + "##" + bean.fill_date + "##" + bean.date + "##" + bean.operator + "##" + bean.need + "##" + bean.text
+
+
         line = re.sub("\s+", " ", line)
         # rowkey_file.write(rowkey+"\n")
         if file==None:
             file = open(file_path, "w+", encoding="utf-8")
         file.write(line + "\n")
+
+def do_cut(title):
+    a = ""
+    cuts = thu1.cut(title, text=False)
+    for i in cuts:
+        if 'n' == i[1] or 'v' == i[1] or 'a' == i[1] or 'j' == i[1] or 'x' == i[1] or 'd' == i[1] or 'g' == i[1]:
+            a += i[0] + ' '
+    return a
+
+def responsible(site):
+
+    if '/' in site.replace('http://', '').replace('https://', ''):
+        site = site.replace('http://', '').replace('https://', '').split('/')[0].strip()
+    else:
+        site = site.replace('http://', '').replace('https://', '').strip()
+
+    site_map = {
+        'www.gzsggzyjyzx.cn': '王洋',
+        'www.ccgp-jiangsu.gov.cn': '何一石',
+        'www.ccgp-shandong.gov.cn': '孟宏权',
+        'cgb.xjtu.edu.cn': '秦超,刘波',
+        'ggzy.xjbt.gov.cn': '刘波',
+        'zbxx.ycit.cn': '王美怡',
+        'www.ccgp-yancheng.gov.cn': '何一石',
+        'www.zjzfcg.gov.cn': '董伟琨',
+        'www.bidchance.com': '孟宏权,杨跃,高世明,张琦,杨跃,杜士荣,秦超,赵潇潇,刘柳,姜波,郑子玉,沈婧男,肖俊文,李东海',
+        'www.ccgp.gov.cn': '王雪娟,肖俊文,刘波,刘向平,孟宏权,刘波,师光辉,张洁,骆金伟,李晓光,金丽荣,姜波,沈婧男,赵潇潇,李东海,孙秀焕,杨跃,王洋,刘默'
+    }
+
+    try:
+        return site_map[site]
+    except:
+        return '无负责人'
 
 def write_rowkey(max_num):
     start_row, end_row = create_start_end_rowkey(0, max_num)
@@ -209,6 +248,7 @@ class scheduler_thread(threading.Thread):
 
 if __name__ == '__main__':
     run_write()
+    # reset_time()
     # print(datetime.datetime.now().date())
     # bean=standard_spider.Bean()
     # bean.title="兵团检察院“两房”室内设计装修项目招标公告"
