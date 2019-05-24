@@ -104,7 +104,6 @@ def write_file(file_path):
 
         bean.cut = do_cut(bean.title)
         bean.responsible = responsible(bean.url)
-        print(bean.cut,bean.responsible)
         line = rowkey + "##" + bean.name + "##" + bean.customerid + "##" + bean.year + "##" + bean.flag + "##" + bean.title + "##" + bean.url + "##" + bean.fill_date + "##" + bean.date + "##" + bean.operator + "##" + bean.need + "##" + bean.text
 
 
