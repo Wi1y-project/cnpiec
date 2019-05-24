@@ -35,7 +35,7 @@ class StartSpider(threading.Thread):
         err_count=0
         while(True):
             if time.time()>end_time:
-                logger.info("运行时间过长，强制停止。")
+                logger.info(self.nm.name + "__"+self.name+" 运行时间过长，强制停止。")
                 exit(0)
             logger.info(self.nm.name + "__"+self.name+" run page: "+str(i))
             try:
@@ -175,6 +175,10 @@ class EndSpider(threading.Thread):
         logger.info(self.nm.name+" end thread start as "+self.name+"...")
         end_time = time.time() + common_keys.THREAD_MAX_RUN_TIME
         while (True):
+            if time.time() > end_time:
+                logger.info(self.nm.name + "__"+self.name+" 运行时间过长，强制停止。")
+                exit(0)
+
             if self.nm.has_next():
                 bean=Bean()
                 bean.parser(self.nm.get_bean())
@@ -186,9 +190,7 @@ class EndSpider(threading.Thread):
                     time.sleep(10)
                     continue
 
-            if time.time() > end_time:
-                logger.info("运行时间过长，强制停止。")
-                exit(0)
+
 
             try:
                 logger.info(self.nm.name + "__"+self.name+ " 开始爬取："+bean.url)
@@ -236,7 +238,6 @@ class EndSpider(threading.Thread):
 
 
     def set_parm(self,bean):
-        print(bean.title)
         if self.temp_title == None and bean.title == None:
             raise ValueError("title 不能为空！")
 
