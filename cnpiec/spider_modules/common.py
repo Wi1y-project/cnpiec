@@ -52,8 +52,8 @@ class common_keys:
     WAIT_TIME=6
 
     #线程运行最长时间（秒）
-    THREAD_MAX_RUN_TIME=20
-    # THREAD_MAX_RUN_TIME=21600
+    # THREAD_MAX_RUN_TIME=20
+    THREAD_MAX_RUN_TIME=21600
 
     KEY_NUM=0
     KEY_NUM_NAME="key_num"
