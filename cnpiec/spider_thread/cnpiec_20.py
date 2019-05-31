@@ -54,7 +54,8 @@ class thrid(ss.EndSpider):
         self.set_text(text)
         self.set_title(title)
         
-
+if __name__ == '__main__':
+    pass
 
 
 

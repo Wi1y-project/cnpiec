@@ -17,9 +17,10 @@ class first(ss.StartSpider):
     def get(self,num):
 
         urls = []
-        
-        
-        url = 'http://www.ccgp-hebei.gov.cn/province/cggg/zbgg/index_'+ str(num + 1) +'.html'
+        if num==0:
+            url = 'http://www.ccgp-hebei.gov.cn/province/cggg/zbgg/index.html'
+        else:
+            url = 'http://www.ccgp-hebei.gov.cn/province/cggg/zbgg/index_'+ str(num + 1) +'.html'
         
         soup = BeautifulSoup(get_html(url),'html.parser')
         temp = []

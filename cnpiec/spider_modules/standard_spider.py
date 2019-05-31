@@ -269,7 +269,7 @@ class increment():
     def __init__(self,nm):
         self.nm=nm
         self.format="%Y-%m-%d"
-        self.default_date="2019-5-01"
+        self.default_date="2019-5-24"
         self.current_date=None
         self.last_date=None
         self.url_date=None

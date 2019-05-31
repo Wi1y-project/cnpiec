@@ -75,7 +75,7 @@ class Conf_Parser(ConfigParser):
 
 def test():
     thread = []
-    pyname = "cnpiec_30"
+    pyname = "cnpiec_21"
     first = "first"
     second = "thrid"
     # second = "second"
@@ -92,7 +92,7 @@ def test():
 
 if __name__ == '__main__':
     test()
-
+    # run()
 
     # query()
     # scheduler=BlockingScheduler()

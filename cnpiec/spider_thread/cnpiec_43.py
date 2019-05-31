@@ -27,7 +27,7 @@ class first(ss.StartSpider):
                     date = a.parent.parent.find_all('td')[3].get_text()
                     url_n = 'https://www.ynggzy.com' + a.get('href')
                     map[url] = title
-                    self.set_list(urls, url_n, date)
+                    self.set_list(urls, url_n, date,title)
 
             except:
                 pass
@@ -36,11 +36,9 @@ class first(ss.StartSpider):
 
 class thrid(ss.EndSpider):
     def get(self,url):
-        title = map[url]
         r = requests.get(url)
         s = BeautifulSoup(r.text,'html.parser')
         text = s.find(attrs={'class': 'detail_contect'}).get_text().strip()
         text = "".join(text.split())
 
-        self.set_title(title)
         self.set_text(text)
