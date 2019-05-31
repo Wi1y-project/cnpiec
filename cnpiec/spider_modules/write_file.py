@@ -83,6 +83,7 @@ def write_file(file_path):
         string = name_manager.get(common_keys.FINISH_LIST_NAME)
         bean = standard_spider.Bean()
         bean.parser(string)
+        bean.cut = do_cut(bean.title)
         bean.need = needs(bean)
         if common_keys.ROWKEY_CONDITION.acquire():
             # print("================",max_num)
@@ -102,7 +103,7 @@ def write_file(file_path):
         bean.year=re.search("\d{4}",bean.date).group()
         bean.fill_date=str(datetime.datetime.now().date())
 
-        bean.cut = do_cut(bean.title)
+
         bean.responsible = responsible(bean.url)
         bean.name=1
         line = rowkey + "##" + bean.name + "##" + bean.customerid + "##" + bean.year + "##" + bean.flag + "##" + bean.title + "##" + bean.url + "##" + bean.fill_date + "##" + bean.date + "##" + bean.operator + "##" + bean.need + "##" + bean.text

@@ -1,61 +1,37 @@
-
 import requests
-from bs4 import  BeautifulSoup
 import cnpiec.spider_modules.standard_spider as ss
-import time
-import random
-import re
-
-
+import json
+import datetime
 
 
 class first(ss.StartSpider):
 
     def get(self,num):
         urls = []
-        url="http://www.ccgp-qinghai.gov.cn/jilin/zbxxController.form?declarationType=&type=1&pageNo=" + str(num)
-        data = requests.get(url)
-        data.encoding = 'utf-8'
-        data = data.text
-        soup = BeautifulSoup(data, "html.parser")
-
-        div_tag = soup.find("div", class_="m_list_3")
-        for li_tag in div_tag.find_all("li"):
-            a_tag = li_tag.find("a")
-            url_n = a_tag["href"]
-            date = li_tag.find("span").text
-            date = date.replace("年", "-")
-            date = date.replace("月", "-")
-            date = date.replace("日", "")
-            self.set_list(urls,url_n,date)
+        url = "http://www.ccgp-qinghai.gov.cn/es-articles/es-article/_search"
+        headers = {
+            'Accept': '*/*',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36',
+            'Content-Type': 'application/json'
+        }
+        data = {"from": str(num * 15), "size": "15", "query": {"bool": {"must": [{"term": {"siteId": {"value": "38", "boost": 1}}},{"bool": {"should": [{"wildcard": {"districtCode": "6399*"}}]}}, {"wildcard": {"path": {"wildcard": "*6zcyannouncement26*","boost": 1}}}],"adjust_pure_negative": 'true', "boost": 1, "should": []}},"sort": [{"publishDate": {"order": "desc"}}, {"_id": {"order": "desc"}}], "_source": {"includes": ["title", "articleId", "siteId", "cover", "url", "pathName", "publishDate", "attachmentUrl","districtName", "gpCatalogName"], "excludes": ["content"]}}
+        r = requests.post(url, data=json.dumps(data), headers=headers)
+        j = r.json()
+        for item in j['hits']['hits']:
+            url_n = 'http://www.ccgp-qinghai.gov.cn/ZcyAnnouncement/ZcyAnnouncement2/ZcyAnnouncement3001/' + str(
+                item['_id']) + '.html'
+            title = item['_source']['title']
+            date_temp = str(item['_source']['publishDate'])[:-3]
+            date_temp = int(date_temp)
+            timeArray = datetime.datetime.utcfromtimestamp(date_temp)
+            date = timeArray.strftime("%Y-%m-%d")
+            self.set_list(urls, url_n, date, title)
         return urls
 
+
 class thrid(ss.EndSpider):
-    def get(self,url):
+    def get(self, url):
 
-        dnum = re.search("(\d{4}/\d{1,2}/\d{1,2})", url).span()
-        date = url[dnum[0]:dnum[1]]
-
-        suffix_num = re.search("htmlURL=", url).span()
-        suffix = url[suffix_num[1]:]
-        new_url = "http://www.ccgp-qinghai.gov.cn/" + suffix
-        data = requests.get(new_url)
-        data.encoding = 'GBK'
-        data = data.text
-        soup = BeautifulSoup(data, "html.parser")
-
-
-        tag = soup.find("body")
-
-        title = ""
-        for p_title in tag.find_all("p", align="center"):
-            title = title + p_title.get_text().strip()
-            p_title.extract()
-
-        [s.extract() for s in tag('input')]
-
-        text = tag.get_text().strip()
-        text = "".join(text.split())
+        text = 'empty'
         self.set_text(text)
-        self.set_title(title)
 
