@@ -8,7 +8,7 @@ class common_keys:
     #第二次执行时间
     SECOND_TIME=15
     #redis数据库IP
-    REDIS_IP = "10.3.1.99"
+    REDIS_IP = "localhost"
     #redis端口
     REDIS_PORT = "6379"
     REDIS_DB = "12"
@@ -33,9 +33,9 @@ class common_keys:
     #rowkey路径
     ROWKEY_PATH="C:/SpiderResultFile/kettle.properties"
     ROWKEY_HISTORY_PATH="C:/SpiderResultFile/rowkeyhistory.txt"
-    jvmPath = 'C:/File/soft/java/jdk1.8/jre/bin/server/jvm.dll'
+    jvmPath = 'C:/Program Files/Java/jdk1.8.0_191/jre/bin/server/jvm.dll'
     JAR_PATH = "D:/classifier.jar"
-    THULAC_MODEL_PATH = 'C:/File/soft/python36/Lib/site-packages/thulac/models'
+    THULAC_MODEL_PATH = 'C:/Program Files/Python36/Lib/site-packages/thulac/models'
 
 
     # FILE_PATH = "/home/ntrl"
