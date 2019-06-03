@@ -8,8 +8,7 @@ from configparser import ConfigParser
 import datetime
 import time
 from apscheduler.schedulers.blocking import BlockingScheduler
-import sys
-from jpype import long
+
 
 
 

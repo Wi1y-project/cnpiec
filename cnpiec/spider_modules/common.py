@@ -6,7 +6,7 @@ class common_keys:
     #第一次执行时间
     FIRST_TIME=6
     #第二次执行时间
-    SECOND_TIME=14
+    SECOND_TIME=12
     #redis数据库IP
     REDIS_IP = "localhost"
     #redis端口
@@ -78,7 +78,7 @@ class common_keys:
     FINISH_LIST_NAME = "finish"
     REDIS_ERR_NAME = "err"
 
-    THREAD_LOG_INIT=False
+    THREAD_LOG_DICT={}
 
     keyword_arr1 = ["文献", "纸质", "纸本", "数据库", "画册", "杂志", "书刊", "报刊", "期刊", "刊物", "期刊订购", "原版图书", "外文图书", "纸质图书", "图书供货",
                     "图书供应", "图书购置", "图书采购", "图书资料", "图书项目", "古籍", "书籍", "电子图书", "电子资源", "全文", "馆配", "馆藏", "订购", "续订",

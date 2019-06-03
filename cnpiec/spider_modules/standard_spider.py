@@ -15,7 +15,7 @@ def set_log_file(logger,nm):
     设置self.logger文件
     :return:
     """
-    if not common_keys.THREAD_LOG_INIT:
+    if not nm.name in common_keys.THREAD_LOG_DICT:
         logger.info("加载log文件...")
         path = common_keys.LOGGER_PATH + nm.name + ".log"
         fh = handlers.RotatingFileHandler(path)
@@ -23,7 +23,7 @@ def set_log_file(logger,nm):
         fh.setLevel(logging.INFO)
         fh.setFormatter(formater_str)
         logger.addHandler(fh)
-        common_keys.THREAD_LOG_INIT=True
+        common_keys.THREAD_LOG_DICT[nm.name]=1
 
 
 class StartSpider(threading.Thread):

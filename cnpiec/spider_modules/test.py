@@ -29,40 +29,35 @@ class A(threading.Thread):
     def run(self):
         while(self.is_run):
             time.sleep(1)
+            print(self.is_run)
             print("AAAAAAAAA")
+
+        print("=======")
 
 
     def Eventrun(self):
         print("a stop!")
         self.is_run=False
+        print(self.is_run)
         exit(0)
 
-def test():
-    print("TTTTTTT")
-    stop = threading.Event()
-    a = A(stopevt=stop)
-    a.setDaemon(True)
-    a.start()
-    time.sleep(20)
-    print("===========")
+
 
 
 if __name__ == '__main__':
-    # stop=threading.Event()
-    # a=A(stopevt=stop)
+    stop=threading.Event()
+    a=A(stopevt=stop)
     # a.setDaemon(True)
-    # a.start()
-    # time.sleep(3)
-    # print(a.is_alive())
-    # stop.set()
-    # time.sleep(1)
-    # print(a.is_alive())
-    #
-    # time.sleep(1)
-    # print(a.is_alive())
-    t=threading.Thread(target=test)
-    # t.setDaemon(True)
-    t.start()
+    a.start()
+    time.sleep(3)
+    print("thread:",a.is_alive())
+    stop.set()
+    time.sleep(1)
+    print("thread:",a.is_alive())
+
+    time.sleep(1)
+    print("thread:",a.is_alive())
+
     # print(str(None))
     # taskname="cnpiec_45_A"
     # classname="thrid"
