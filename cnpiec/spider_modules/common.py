@@ -6,7 +6,7 @@ class common_keys:
     #第一次执行时间
     FIRST_TIME=6
     #第二次执行时间
-    SECOND_TIME=15
+    SECOND_TIME=14
     #redis数据库IP
     REDIS_IP = "localhost"
     #redis端口
@@ -24,28 +24,32 @@ class common_keys:
     RESPONSIBLE = "responsible"
     NEED = "need"
 
-    #文件下载路径
-    FILE_PATH = "C:/SpiderResultFile"
-    #错误文件路径
-    ERR_PATH = "C:/temp/err"
-    #写日志的文件路径
-    LOGGER_PATH = "C:/temp/loger.log"
-    #rowkey路径
-    ROWKEY_PATH="C:/SpiderResultFile/kettle.properties"
-    ROWKEY_HISTORY_PATH="C:/SpiderResultFile/rowkeyhistory.txt"
-    jvmPath = 'C:/Program Files/Java/jdk1.8.0_191/jre/bin/server/jvm.dll'
-    JAR_PATH = "D:/classifier.jar"
-    THULAC_MODEL_PATH = 'C:/Program Files/Python36/Lib/site-packages/thulac/models'
+    # #文件下载路径
+    # FILE_PATH = "C:/SpiderResultFile"
+    # #错误文件路径
+    # ERR_PATH = "C:/temp/err"
+    # #写日志的文件路径
+    # LOGGER_PATH = "C:/temp/"
+    #
+    # #rowkey路径
+    # ROWKEY_PATH="C:/SpiderResultFile/kettle.properties"
+    # ROWKEY_HISTORY_PATH="C:/SpiderResultFile/rowkeyhistory.txt"
+    # JVM_PATH = 'C:/File/soft/java/jdk1.8/jre/bin/server/jvm.dll'
+    # JAR_PATH = "D:/classifier.jar"
+    # THULAC_MODEL_PATH = 'C:/File/soft/Python36/Lib/site-packages/thulac/models'
+
+    #日志格式
+    LOGGER_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 
 
-    # FILE_PATH = "/home/ntrl"
-    # ERR_PATH = "/home/ntrl/temp/err"
-    # LOGGER_PATH = "/home/ntrl/temp/loger.log"
-    # ROWKEY_PATH = "/root/.kettle/kettle.properties"
-    # ROWKEY_HISTORY_PATH="/root/.kettle/row_key.txt"
-    # jvmPath = '/usr/java/jdk1.7.0_67/jre/lib/amd64/server/libjvm.so'
-    # JAR_PATH = "/home/classifier.jar"
-    # THULAC_MODEL_PATH = '/opt/toolsrc/py/python3/lib/python3.6/site-packages/thulac/models'
+    FILE_PATH = "/home/ntrl"
+    ERR_PATH = "/home/ntrl/temp/err"
+    LOGGER_PATH = "/home/ntrl/temp/loger.log"
+    ROWKEY_PATH = "/root/.kettle/kettle.properties"
+    ROWKEY_HISTORY_PATH="/root/.kettle/row_key.txt"
+    JVM_PATH = '/usr/java/jdk1.7.0_67/jre/lib/amd64/server/libjvm.so'
+    JAR_PATH = "/home/classifier.jar"
+    THULAC_MODEL_PATH = '/opt/toolsrc/py/python3/lib/python3.6/site-packages/thulac/models'
 
 
     #无数据时，等待时间
@@ -73,6 +77,8 @@ class common_keys:
     CONF_NAME = "conf.cfg"
     FINISH_LIST_NAME = "finish"
     REDIS_ERR_NAME = "err"
+
+    THREAD_LOG_INIT=False
 
     keyword_arr1 = ["文献", "纸质", "纸本", "数据库", "画册", "杂志", "书刊", "报刊", "期刊", "刊物", "期刊订购", "原版图书", "外文图书", "纸质图书", "图书供货",
                     "图书供应", "图书购置", "图书采购", "图书资料", "图书项目", "古籍", "书籍", "电子图书", "电子资源", "全文", "馆配", "馆藏", "订购", "续订",

@@ -3,21 +3,29 @@ import os
 from cnpiec.spider_modules.common import common_keys
 from cnpiec.spider_modules import name_manager
 from cnpiec.spider_modules import standard_spider
+from apscheduler.schedulers.blocking import BlockingScheduler
 import time
 import datetime
 import jpype
 from jpype import *
 import logging
 from logging import handlers
-from configparser import ConfigParser
+import threading
 import thulac
 
 
 logging.basicConfig(level = logging.INFO,format = common_keys.LOGGER_FORMAT)
 logger=logging.getLogger("writefile_logger")
+log_file=common_keys.LOGGER_PATH+"writefile_logger.log"
+fh=handlers.RotatingFileHandler(log_file)
+formater_str=logging.Formatter(common_keys.LOGGER_FORMAT)
+fh.setLevel(logging.INFO)
+fh.setFormatter(formater_str)
+logger.addHandler(fh)
 
 
-
+jpype.startJVM(common_keys.jvmPath, "-Djava.class.path="+common_keys.JAR_PATH)
+thu1 = thulac.thulac(model_path=common_keys.THULAC_MODEL_PATH)
 def create_single_file():
     '''
     检查写入文件的路径是否存在
@@ -29,26 +37,41 @@ def create_single_file():
     return common_keys.FILE_PATH + "/CNPIEC.txt"
 
 def run_write():
-    logger.info("write file 启动，加载数据...")
-    update_path()
-    set_logger_file()
-    logger.info("加载jvm...")
-    jpype.startJVM(common_keys.JVM_PATH, "-Djava.class.path=" + common_keys.JAR_PATH)
-    logger.info("加载切词器...")
-    thu1 = thulac.thulac(model_path=common_keys.THULAC_MODEL_PATH)
-
+    logger.info("write start...")
     file=create_single_file()
+    scheduler_thread().start()
 
-    write_file(file,thu1)
+    write_file(file)
 
-def set_logger_file():
-    logger.info("加载log文件...")
-    log_file = common_keys.LOGGER_PATH + "writefile_logger.log"
-    fh = handlers.RotatingFileHandler(log_file)
-    formater_str = logging.Formatter(common_keys.LOGGER_FORMAT)
-    fh.setLevel(logging.INFO)
-    fh.setFormatter(formater_str)
-    logger.addHandler(fh)
+def reset_num():
+    while(True):
+        if common_keys.ROWKEY_CONDITION.acquire():
+            common_keys.KEY_NUM=0
+            common_keys.LAST_ROWKEY_PROFIX = common_keys.ROWKEY_PROFIX
+            set_rowkey_profix()
+            common_keys.ROWKEY_CONDITION.release()
+            break
+        else:
+            common_keys.ROWKEY_CONDITION.wait()
+
+def reset_time():
+    while (True):
+        if common_keys.ROWKEY_CONDITION.acquire():
+            common_keys.KEY_NUM = 0
+
+            # d = time.time()
+            d = time.mktime(datetime.datetime.now().date().timetuple())
+            common_keys.KEY_TIME = sys.maxsize - long(d)
+
+            common_keys.LAST_ROWKEY_PROFIX = common_keys.ROWKEY_PROFIX
+            set_rowkey_profix()
+            print_errs(common_keys.ERR_PATH)
+            name_manager.set_string(common_keys.KEY_TIME_NAME,str(common_keys.KEY_TIME))
+            common_keys.ROWKEY_CONDITION.release()
+            break
+        else:
+            common_keys.ROWKEY_CONDITION.wait()
+    # print_errs(common_keys.ERR_PATH)
 
 def set_rowkey_profix():
     """
@@ -56,14 +79,6 @@ def set_rowkey_profix():
     :return:
     """
     logger.info("设置rowkey前缀。")
-    if common_keys.ROWKEY_PROFIX!=None:
-        common_keys.LAST_ROWKEY_PROFIX=common_keys.ROWKEY_PROFIX
-
-    #获取当天时间（long）
-    d = time.mktime(datetime.datetime.now().date().timetuple())
-    common_keys.KEY_TIME = sys.maxsize - long(d)
-    name_manager.set_string(common_keys.KEY_TIME_NAME,common_keys.KEY_TIME)
-
     h = datetime.datetime.now().hour
     if h < common_keys.SECOND_TIME:
         name_manager.set_string(common_keys.KEY_TIME_S_NAME,common_keys.FIRST_TIME_S)
@@ -72,28 +87,14 @@ def set_rowkey_profix():
         name_manager.set_string(common_keys.KEY_TIME_S_NAME, common_keys.SECOND_TIME_S)
         common_keys.ROWKEY_PROFIX=create_rowkey_profix(common_keys.KEY_TIME,common_keys.SECOND_TIME_S)#str(common_keys.KEY_TIME)+"_"+common_keys.SECOND_TIME_S
 
-def write_file(file_path,thu1):
-    '''
-    读取数据写入文件中
-    :param file_path:
-    :return:
-    '''
+def write_file(file_path):
 
     max_num = load_num()
-
     common_keys.KEY_NUM=max_num
     file=None
     logger.info("数据加载结束：rowkey num=" + str(
-        common_keys.KEY_NUM) + ",rowkey profix=" + common_keys.ROWKEY_PROFIX + ",last rowkey profix=" + str(common_keys.LAST_ROWKEY_PROFIX))
+        common_keys.KEY_NUM) + ",rowkey profix=" + common_keys.ROWKEY_PROFIX + ",last rowkey profix=" + common_keys.LAST_ROWKEY_PROFIX)
     while (True):
-
-        logger.info("检查rowkey...")
-        set_rowkey_profix()
-        if common_keys.LAST_ROWKEY_PROFIX != common_keys.ROWKEY_PROFIX:
-            logger.info("rowkey前缀改变，更新rowkey文件。")
-            write_rowkey(max_num)
-            max_num = 0
-
         if not name_manager.has_next(common_keys.FINISH_LIST_NAME):
             logger.info("无数据，等待中...")
             if file!=None:
@@ -101,17 +102,30 @@ def write_file(file_path,thu1):
             file = None
             time.sleep(common_keys.WAIT_TIME)
             continue
+        logger.info("发现数据，开始生成rowkey...")
+        if common_keys.ROWKEY_CONDITION.acquire():
+            logger.info("获得rowkey锁。")
+            # print("================",max_num)
+            # print("==========",common_keys.KEY_NUM)
+            if common_keys.KEY_NUM == 0 and max_num != 0:
+                write_rowkey(max_num)
 
-        logger.info("检查到数据，开始生成rowkey...")
-        rowkey = create_rowkey(max_num)
-        name_manager.set_string(common_keys.KEY_NUM_NAME,str(max_num))
-        max_num += 1
-
-        logger.info("生成rowkey："+rowkey+",开始写数据...")
+            max_num = common_keys.KEY_NUM
+            rowkey = create_rowkey(max_num)
+            common_keys.KEY_NUM += 1
+            name_manager.set_string(common_keys.KEY_NUM_NAME,str(max_num))
+            logger.info("释放锁并唤醒等待的线程...")
+            common_keys.ROWKEY_CONDITION.release()
+            common_keys.ROWKEY_CONDITION.notify_all()
+        else:
+            logger.info("未获取到rowkey锁，等待中...")
+            common_keys.ROWKEY_CONDITION.wait()
+            continue
+        logger.info("数据写入中...")
         string = name_manager.get(common_keys.FINISH_LIST_NAME)
         bean = standard_spider.Bean()
         bean.parser(string)
-        bean.cut = do_cut(bean.title,thu1)
+        bean.cut = do_cut(bean.title)
         bean.need = needs(bean)
         bean.year=re.search("\d{4}",bean.date).group()
         bean.fill_date=str(datetime.datetime.now().date())
@@ -125,8 +139,7 @@ def write_file(file_path,thu1):
             file = open(file_path, "w+", encoding="utf-8")
         file.write(line + "\n")
 
-def do_cut(title,thu1):
-    logger.info("开始切词...")
+def do_cut(title):
     a = ""
     cuts = thu1.cut(title, text=False)
     for i in cuts:
@@ -135,13 +148,7 @@ def do_cut(title,thu1):
     return a
 
 def responsible(site):
-    '''
-    设置负责人
-    :param site:
-    :return:
-    '''
 
-    logger.info("设置负责人...")
     if '/' in site.replace('http://', '').replace('https://', ''):
         site = site.replace('http://', '').replace('https://', '').split('/')[0].strip()
     else:
@@ -193,14 +200,15 @@ def load_num():
     temp_s=name_manager.get_string(common_keys.KEY_TIME_S_NAME)
 
     # print(temp_num,temp_time,temp_s)
-
-
-    set_rowkey_profix()
-    logger.info("当前时间段的rowkey前缀为："+common_keys.ROWKEY_PROFIX)
-
     if temp_num ==None:
         logger.info("rowkey num为空。")
         return 0
+
+    d = time.mktime(datetime.datetime.now().date().timetuple())
+    common_keys.KEY_TIME = sys.maxsize - long(d)
+
+    set_rowkey_profix()
+    logger.info("当前时间段的rowkey前缀为："+common_keys.ROWKEY_PROFIX)
 
     temp_profix=create_rowkey_profix(temp_time,temp_s)
     logger.info("读取到redis中存储的rowkey前缀为："+temp_profix)
@@ -238,22 +246,16 @@ def create_rowkey_profix(r_time,r_temp_s):
     return str(r_time)+ "_" +str(r_temp_s)
 
 
-# def print_errs(file):
-#     if name_manager.has_next(common_keys.REDIS_ERR_NAME):
-#         err_file=open(file,"a+",encoding="utf-8")
-#         while(name_manager.has_next(common_keys.REDIS_ERR_NAME)):
-#             line=name_manager.get(common_keys.REDIS_ERR_NAME)
-#             err_file.write(str(datetime.datetime.now())+" "+line+"\n")
+def print_errs(file):
+    if name_manager.has_next(common_keys.REDIS_ERR_NAME):
+        err_file=open(file,"a+",encoding="utf-8")
+        while(name_manager.has_next(common_keys.REDIS_ERR_NAME)):
+            line=name_manager.get(common_keys.REDIS_ERR_NAME)
+            err_file.write(str(datetime.datetime.now())+" "+line+"\n")
 
 def create_rowkey(i):
-    '''
-    生成rowkey
-    :param i:
-    :return:
-    '''
     if common_keys.KEY_TIME==None :
-        d = time.mktime(datetime.datetime.now().date().timetuple())
-        common_keys.KEY_TIME = sys.maxsize - long(d)
+        reset_time()
     if common_keys.ROWKEY_PROFIX ==None:
         set_rowkey_profix()
     return common_keys.ROWKEY_PROFIX+"_"+str.zfill(str(i), 5)
@@ -271,12 +273,6 @@ def create_start_end_rowkey(start,end):
 
 
 def needs(bean):
-    '''
-    判断该数据是否需要
-    :param bean:
-    :return:
-    '''
-    logger.info("开始生成标签")
     for c0,key in enumerate(common_keys.keyword_arr3):
         if key in bean.title:
             return "n"
@@ -290,7 +286,6 @@ def needs(bean):
                    #  pass
                 elif c2 == len(common_keys.keyword_arr2) - 1:
                    return "n"
-
 def java_part(parm):
     Trainer = JClass('Trainer')
     t = Trainer()
@@ -302,22 +297,34 @@ def java_part(parm):
     else:
         return res
 
+class scheduler_thread(threading.Thread):
+    def run(self):
+        scheduler = BlockingScheduler()
+        scheduler.add_job(func=reset_num,trigger="cron",day="*",hour="*",minute="*")
+        scheduler.add_job(func=reset_time, trigger="cron", day="*", hour="0")
 
-def update_path():
-    """
-    将conf中path中设置的路径读取到common文件中
-    :return:
-    """
-    logger.info("加载conf中配置的路径...")
-    conf = ConfigParser()
-    conf.read(common_keys.CONF_NAME, encoding="utf-8")
-    for item in conf.items("path"):
-        setattr(common_keys, item[0].upper(), item[1])
+        #scheduler.add_job(func=reset_time, trigger="cron", day="*", hour="*", minute="*")
+        scheduler.start()
+
+
+
+
 
 if __name__ == '__main__':
     run_write()
-
-
+    # reset_time()
+    # print(datetime.datetime.now().date())
+    # bean=standard_spider.Bean()
+    # bean.title="兵团检察院“两房”室内设计装修项目招标公告"
+    # print(needs(bean))
+    #
+    # string="2019-01-05"
+    # print(datetime.datetime.now().date())
+    # start_row = create_rowkey(0)
+    # end_row = create_rowkey(10)
+    # rowkey_file = open(common_keys.ROWKEY_PATH, "w+", encoding="UTF-8")
+    # print(common_keys.NOTE + common_keys.START_ROW + "=" + start_row + "\n" + common_keys.END_ROW + "=" + end_row)
+    # rowkey_file.write( common_keys.NOTE + common_keys.START_ROW + "=" + start_row + "\n" + common_keys.END_ROW + "=" + end_row)
 
 
 
