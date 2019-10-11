@@ -2,21 +2,21 @@ import threading
 from  cnpiec.spider_modules import name_manager
 import time
 
-def test_start(task_name,class_name):
-    pyfile = __import__("cnpiec.spider_thread." + task_name, fromlist=True)
-    f = getattr(pyfile, class_name)
-
-    nm = name_manager.Name_Manager(task_name+"_test")
-    f(nm).start()
-    f.join()
-    nm.delete_all()
-
-def test_end(task_name,class_name,url):
-    pyfile = __import__("cnpiec.spider_thread." + task_name, fromlist=True)
-    e = getattr(pyfile, class_name)
-
-    nm = name_manager.Name_Manager(task_name + "_test")
-    e(nm).test(url)
+# def test_start(task_name,class_name):
+#     pyfile = __import__("cnpiec.spider_thread." + task_name, fromlist=True)
+#     f = getattr(pyfile, class_name)
+#
+#     nm = name_manager.Name_Manager(task_name+"_test")
+#     f(nm).start()
+#     f.join()
+#     nm.delete_all()
+#
+# def test_end(task_name,class_name,url):
+#     pyfile = __import__("cnpiec.spider_thread." + task_name, fromlist=True)
+#     e = getattr(pyfile, class_name)
+#
+#     nm = name_manager.Name_Manager(task_name + "_test")
+#     e(nm).test(url)
 
 class A(threading.Thread):
     def __init__(self, stopevt=None, name='subthread', Type='event'):
@@ -42,21 +42,100 @@ class A(threading.Thread):
         exit(0)
 
 
+class B(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+        self.a=None
 
+
+    def run(self):
+        print("------------")
+        c=self.C(self.get,"c",1)
+        c.setDaemon(True)
+        c.start()
+        c.join(1)
+        print("++++++++++++",self.a)
+        if c.is_alive():
+            print("alive")
+        else:
+            print("dead",c.get_result())
+
+        c = self.C(self.get, "cb", 2)
+        c.setDaemon(True)
+        c.start()
+        c.join(1)
+        print("++++++++++++", self.a)
+        if c.is_alive():
+            print("alive")
+        else:
+            print("dead", c.get_result())
+
+        while (True):
+            time.sleep(1)
+            print(self.a)
+
+    def use(self,a):
+        print("aaaaaaaaa"+a)
+        self.a = a
+
+        while(True):
+            time.sleep(2)
+            self.a = a
+            print("============",)
+    def get(self,a):
+        print("---------",a)
+        self.use(a)
+
+    class C(threading.Thread):
+        def __init__(self, fun, args,version):
+            threading.Thread.__init__(self)
+            self.fun = fun
+            self.args = args
+            self.version=version
+            self.result=None
+
+        def run(self):
+            self.fun(self.args)
+            self.result="r"
+
+        def get_result(self):
+            return self.result
+
+
+
+
+def get_a(num):
+    print("----------",num)
+    return "a"+str(num)
 
 if __name__ == '__main__':
-    stop=threading.Event()
-    a=A(stopevt=stop)
-    # a.setDaemon(True)
-    a.start()
-    time.sleep(3)
-    print("thread:",a.is_alive())
-    stop.set()
-    time.sleep(1)
-    print("thread:",a.is_alive())
+    # b=B(get_a,("c",))
+    # b.setDaemon(True)
+    # b.start()
+    B().start()
+    #
+    # b.join(2)
+    # print("-------------")
+    #
+    # time.sleep(2)
 
-    time.sleep(1)
-    print("thread:",a.is_alive())
+    # t=threading.Thread(target=get_a,args=('ADF',))
+    # t.setDaemon(True)
+    # t.start()
+
+
+    # stop=threading.Event()
+    # a=A(stopevt=stop)
+    # # a.setDaemon(True)
+    # a.start()
+    # time.sleep(3)
+    # print("thread:",a.is_alive())
+    # stop.set()
+    # time.sleep(1)
+    # print("thread:",a.is_alive())
+    #
+    # time.sleep(1)
+    # print("thread:",a.is_alive())
 
     # print(str(None))
     # taskname="cnpiec_45_A"

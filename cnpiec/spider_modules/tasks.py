@@ -23,7 +23,8 @@ def run():
     thread.clear()
     conf = Conf_Parser()
     conf.read(common_keys.CONF_NAME,encoding="utf-8")
-
+    # for t in thread:
+    #     # print("++++++++++++++",t.name)
     logger.info("加载配置的爬虫...")
     for item in conf.items("task"):
         pyname=item[0]
@@ -33,6 +34,7 @@ def run():
         run_single(pyname,classes[0],classes[1])
 
     for t in thread:
+        # print("==================",t.name)
         t.start()
 
 
@@ -67,19 +69,18 @@ class Conf_Parser(ConfigParser):
         return optionstr
 
 def test():
-    thread = []
-    pyname = "cnpiec_14"
+
+    pyname = "cnpiec_3"
     first = "first"
     second = "thrid"
     # second = "second"
 
-    run_single(pyname, first, second, thread)
+    run_single(pyname, first, second)
 
     for t in thread:
         t.start()
 
-    for t in thread:
-        t.join()
+    thread.clear()
 
 def update_path():
     """
@@ -109,9 +110,10 @@ def set_log_file():
 def is_alive():
     has_alive=False
     for t in thread:
+        # print("____________",t.name)
         if t.is_alive():
             has_alive=True
-            logger.info(t.get_name()+" 线程未结束！")
+            logger.info(t.name+" 线程未结束！")
             alive_thread.append(t)
 
     if not  has_alive:
@@ -121,15 +123,15 @@ def is_alive():
 if __name__ == '__main__':
     update_path()
     set_log_file()
-
+    scheduler = BlockingScheduler()
+    scheduler.add_job(func=run, trigger="cron", day="*", hour="*", minute="0,10,20,30,40,50")
+    scheduler.start()
     # test()
     # update_path()
     # run()
 
     # query()
-    scheduler=BlockingScheduler()
-    scheduler.add_job(func=run,trigger="cron",day="*",hour="*",minute="0,10,20,30,40,50")
-    scheduler.start()
+
 
     # scheduler=BlockingScheduler()
     # scheduler.add_job(func=test,trigger="cron",day="*",hour="14",minute="*")

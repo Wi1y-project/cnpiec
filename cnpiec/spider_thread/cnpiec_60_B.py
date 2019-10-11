@@ -17,7 +17,7 @@ class first(ss.StartSpider):
     def get(self,num):
         
         urls = []
-        url = 'http://www.gxzfcg.gov.cn/CmsNewsController/getCmsNewsList/channelCode-sxjcg_cggg/param_bulletin/20/page_'+ str(num)+'.html'
+        url = 'http://www.gxzfcg.gov.cn/CmsNewsController/getCmsNewsList/channelCode-sxjcg_cggg/param_bulletin/20/page_'+ str(num+1)+'.html'
         s = BeautifulSoup(get_html(url), 'html.parser')
         div = s.find(attrs={'class': 'column infoLink noBox unitWidth_x6'})
         for i in div.find_all('li'):

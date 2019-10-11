@@ -9,6 +9,7 @@ def get_html(url):
     data = requests.get(url)
     data.encoding = 'utf-8'
     data = data.text
+    print(data)
     return data
 
 
@@ -17,7 +18,7 @@ class first(ss.StartSpider):
     def get(self,num):
         
         urls = []
-        url = 'http://www.ccgp-sichuan.gov.cn/CmsNewsController.do?method=recommendBulletinList&moreType=provincebuyBulletinMore&channelCode=sjcg1&rp=25&page='+str(num)
+        url = 'http://www.ccgp-sichuan.gov.cn/CmsNewsController.do?method=recommendBulletinList&moreType=provincebuyBulletinMore&channelCode=sjcg1&rp=25&page='+str(num+1)
         s = BeautifulSoup(get_html(url), 'html.parser')
         div = s.find(attrs={'class': 'info'})
         for i in div.find_all('li'):
@@ -28,7 +29,8 @@ class first(ss.StartSpider):
             date_temp = i.find('div')
             date1 = re.sub(r'<span>.*</span>', "", str(date_temp))
             date1 = date1.replace('<div class="time curr">', '').replace('</div>', '').strip()
-            date = date1 + '_' + date2
+            date = date1 + '-' + date2
+            print(url_n,date,title)
             self.set_list(urls, url_n, date, title)
 
         return urls

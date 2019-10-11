@@ -62,7 +62,16 @@ class StartSpider(threading.Thread):
             self.logger.info(self.nm.name + "__"+self.name+" run page: "+str(i))
             try:
                 time.sleep(random.random()*3)
-                list=self.get(i)
+                # list=self.get(i)
+                gt=self.Get_Thread(self.get,i)
+                gt.setDaemon(True)
+                gt.start()
+                gt.join(common_keys.START_GET_THREAD_EXECUTE_TIME)
+                if not gt.is_alive():
+                    list=gt.get_result()
+                else:
+                    raise  ValueError("get方法执行超时！")
+
             except:
                 self.logger.error(self.nm.name+" Start Thread has err. err page: "+ str(i),exc_info = True)
                 err_time+=1
@@ -124,6 +133,19 @@ class StartSpider(threading.Thread):
                 self.logger.info(self.nm.name + "__"+self.name+" 未满足退出条件，执行下一页...")
                 i+=1
 
+    class Get_Thread(threading.Thread):
+        def __init__(self, fun, args):
+            threading.Thread.__init__(self)
+            self.fun = fun
+            self.args = args
+            self.result = None
+
+        def run(self):
+            self.result=self.fun(self.args)
+
+        def get_result(self):
+            return self.result
+
 class Bean():
     def __init__(self):
         self.url=""
@@ -175,7 +197,12 @@ class Bean():
 
     def parser(self,string):
         self.parser_dict(json.loads(string))
+
 class EndSpider(threading.Thread):
+
+    '''
+    未使用thread的join方法做超时限制：temp_title、temp_text这两个公共变量会出现同步问题
+    '''
     def __init__(self,nm):
         threading.Thread.__init__(self)
         self.nm=nm

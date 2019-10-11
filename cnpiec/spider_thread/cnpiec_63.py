@@ -18,7 +18,7 @@ class first(ss.StartSpider):
         urls = []
         url = 'http://www.ccgp-yunnan.gov.cn/bulletin.do?method=moreListQuery'
         data = {
-            'current': str(num),
+            'current': str(num+1),
             'rowCount': '10',
             'searchPhrase': '',
             'query_sign': '1'
