@@ -69,6 +69,8 @@ class StartSpider(threading.Thread):
                 gt.join(common_keys.START_GET_THREAD_EXECUTE_TIME)
                 if not gt.is_alive():
                     list=gt.get_result()
+                    if list==None:
+                        raise ValueError("get方法返回值为空！")
                 else:
                     raise  ValueError("get方法执行超时！")
 
@@ -245,7 +247,7 @@ class EndSpider(threading.Thread):
                 self.logger.info(self.nm.name + "__"+self.name+ " 开始爬取："+bean.url)
                 time.sleep(random.random()*3)
                 self.get(bean.url)
-            except Exception as e:
+            except :
                 self.logger.error(self.nm.name + "__" + self.name +" end Thread has err. err url : "+bean.url, exc_info=True)
                 bean.retry +=1
 
@@ -261,7 +263,7 @@ class EndSpider(threading.Thread):
                 self.logger.info(self.nm.name + "__" + self.name + " 爬取成功，解析数据..." )
                 self.set_parm(bean)
                 self.nm.set_finish(bean)
-            except Exception as e:
+            except:
                 self.logger.error(self.nm.name + "__" + self.name + " 爬取的数据有误，错误url：" + bean.url, exc_info=True)
 
     def set_parm(self,bean):

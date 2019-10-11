@@ -25,6 +25,15 @@ def run():
     conf.read(common_keys.CONF_NAME,encoding="utf-8")
     # for t in thread:
     #     # print("++++++++++++++",t.name)
+    if alive_thread.__len__()>0:
+        print("有未退出线程!")
+        for at in alive_thread:
+            print("线程名称："+str(at.name)+"。尝试关闭线程...")
+            try:
+                at._stop()
+            except:
+                pass
+
     logger.info("加载配置的爬虫...")
     for item in conf.items("task"):
         pyname=item[0]
@@ -70,7 +79,7 @@ class Conf_Parser(ConfigParser):
 
 def test():
 
-    pyname = "cnpiec_3"
+    pyname = "cnpiec_60_B"
     first = "first"
     second = "thrid"
     # second = "second"
