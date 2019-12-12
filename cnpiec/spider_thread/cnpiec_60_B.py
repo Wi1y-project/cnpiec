@@ -18,12 +18,15 @@ class first(ss.StartSpider):
         
         urls = []
         url = 'http://www.gxzfcg.gov.cn/CmsNewsController/getCmsNewsList/channelCode-sxjcg_cggg/param_bulletin/20/page_'+ str(num+1)+'.html'
+        print(url)
         s = BeautifulSoup(get_html(url), 'html.parser')
         div = s.find(attrs={'class': 'column infoLink noBox unitWidth_x6'})
+        print(div)
         for i in div.find_all('li'):
             url_n = i.find('a').get('href')
             url_n = 'http://www.gxzfcg.gov.cn' + url_n
             date = i.find(attrs={'class': 'date'}).get_text()
+            print(urls,url_n,date)
             self.set_list(urls, url_n, date)
 
         return urls

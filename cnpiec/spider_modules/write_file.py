@@ -314,8 +314,19 @@ def update_path():
     for item in conf.items("path"):
         setattr(common_keys, item[0].upper(), item[1])
 
+def test():
+    t = datetime.datetime.strptime("2019-11-29", "%Y-%m-%d")
+    d = time.mktime(t.timetuple())
+    print(t.date())
+    a = sys.maxsize - long(d)
+    print(a)
+
+
 if __name__ == '__main__':
     run_write()
+
+    # d = time.mktime(datetime.datetime.now().date().timetuple())
+
 
 
 

@@ -31,6 +31,7 @@ def run():
             print("线程名称："+str(at.name)+"。尝试关闭线程...")
             try:
                 at._stop()
+                alive_thread.remove(at)
             except:
                 pass
 
@@ -79,7 +80,7 @@ class Conf_Parser(ConfigParser):
 
 def test():
 
-    pyname = "cnpiec_60_B"
+    pyname = "cnpiec_49"
     first = "first"
     second = "thrid"
     # second = "second"
@@ -132,10 +133,10 @@ def is_alive():
 if __name__ == '__main__':
     update_path()
     set_log_file()
-    scheduler = BlockingScheduler()
-    scheduler.add_job(func=run, trigger="cron", day="*", hour="*", minute="0,10,20,30,40,50")
-    scheduler.start()
-    # test()
+    # scheduler = BlockingScheduler()
+    # scheduler.add_job(func=run, trigger="cron", day="*", hour="*", minute="0,10,20,30,40,50")
+    # scheduler.start()
+    test()
     # update_path()
     # run()
 

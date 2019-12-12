@@ -8,7 +8,12 @@ from cnpiec.spider_modules.common import common_keys
 from logging import handlers
 
 
+'''
+    问题：endspdir可能会出现超时未关闭的情况，这会导致该其执行的cleardone未执行，
+    会使之后的endspider查询到的done为Ture，导致endspider提前关闭。
+    
 
+'''
 
 def set_log_file(logger,nm):
     """
